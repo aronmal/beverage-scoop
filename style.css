@@ -26,6 +26,7 @@ body {
 }
 #header-bar {
     height: 8em;
+    font-size: 1.2em;
     background: rgba(255, 255, 255, .75);
     align-items: center;
     justify-content: space-between;
@@ -38,7 +39,7 @@ body {
     align-items: center;
 }
 #header-bar > *, #header-right > * {
-    padding: 0 1em;
+    padding: 0 3rem;
 }
 #time {
     font-size: 5em !important;
