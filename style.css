@@ -49,7 +49,7 @@ body {
 }
 .svg-div {
     width: 3em;
-    height: 4em;
+    height: 5em;
     border: 0.25em solid royalblue;
     overflow: hidden;
     padding: 0 !important;
@@ -67,6 +67,7 @@ svg {
 #content {
     height: 100%;
     justify-content: space-around;
+    margin-bottom: 4em;
 }
 #content-div {
     /* padding: 0 2vw; */
@@ -101,9 +102,6 @@ svg {
     border-top: 0.05em solid black;
     border-bottom: 0.05em solid black;
 }
-#footer-bar {
-    height: 4em;
-}
 .svg-div, .value {
     background: rgba(255, 255, 255, .2);
 }
@@ -111,4 +109,10 @@ svg {
     transition: 0.2s;
     -webkit-transition: 0.2s;
     background: rgba(255, 255, 255, .5);
+}
+#fanta,#cola,#sprite {
+    align-items: center;
+}
+#fanta > *,#cola > *,#sprite > * {
+    margin: 1rem;
 }
