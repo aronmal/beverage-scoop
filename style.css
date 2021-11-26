@@ -1,10 +1,20 @@
 :root {
-    --bg-color: #9fbfdf;
+    --bg-color: #98b2cb;
+    --header-bg: rgba(255,255,255,0.75);
+    --button-bg: rgba(255,255,255,0.25);
+    --button-bg-hover: rgba(255,255,255,0.5);
+    --wave-bg: rgb(127,159,191);
     --wave-shadow: #fff5;
     
     --first-bg: #fd8e18;
     --second-bg: #8e0300;
     --third-bg: lightsteelblue;
+    --first-brand-bg: #f58e23;
+    --second-brand-bg: red;
+    --third-brand-bg: #519d4f;
+    --first-wave-bg: #c0976b;
+    --second-wave-bg: #88515f;
+    --third-wave-bg: #99b2ce;
 }
 *, *::before, *::after {
     box-sizing: border-box;
@@ -42,7 +52,7 @@ body {
 #header-bar {
     height: 8em;
     font-size: 1.2em;
-    background: rgba(255, 255, 255, .75);
+    background: var(--header-bg);
     align-items: center;
     justify-content: space-between;
     /* padding: 1em 2em; */
@@ -125,11 +135,37 @@ body {
         transform: translateY(-55%);
     }
 }
+
+
+.svg-div p {
+    padding: .125em .25em;
+    border-radius: .125em;
+    box-shadow: 0 0 5px 5px;
+}
+#first-drink .svg-div p {
+    color: white;
+    background: var(--first-brand-bg);
+}
+#second-drink .svg-div p {
+    background: var(--second-brand-bg);
+}
+#third-drink .svg-div p {
+    color: white;
+    background: var(--third-brand-bg);
+}
+#first-drink .wave-rot {
+    background: var(--first-wave-bg);
+}
+#second-drink .wave-rot {
+    background: var(--second-wave-bg);
+}
+#third-drink .wave-rot {
+    background: var(--third-wave-bg);
+}
 .wave-rot {
     position: absolute;
     width: 6em;
     height: 6em;
-    background: var(--bg-color);
     border-radius: 35%;
     animation: wave-start-rot 7.5s, wave-rot 5s linear infinite;
     box-shadow: 0 0 0 0.5rem var(--wave-shadow);
@@ -176,7 +212,7 @@ body {
     }
     50% {
         animation-timing-function: ease-out;
-        transform: translateY(-15%);
+        transform: translateY(-10%);
     }
     100% {
         /* animation-timing-function: linear; */
@@ -229,12 +265,12 @@ svg {
     border-bottom: 0.05em solid black;
 }
 .value {
-    background: rgba(255, 255, 255, .2);
+    background: var(--button-bg);
 }
 .value button:hover {
     transition: 0.2s;
     -webkit-transition: 0.2s;
-    background: rgba(255, 255, 255, .5);
+    background: var(--button-bg-hover);
 }
 #content-div > div {
     align-items: center;
