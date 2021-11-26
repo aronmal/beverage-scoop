@@ -144,16 +144,16 @@ p {
     justify-content: center;
 }
 #first .wave-trans, #first .wave-rot {
-    animation-delay: 1.5s, 9s;
+    animation-delay: 0s, 10s;
 }
 #second .wave-trans, #second .wave-rot {
-    animation-delay: 1s, 8.5s;
+    animation-delay: 1s, 11s;
 }
 #third .wave-trans, #third .wave-rot {
-    animation-delay: .5s, 8s;
+    animation-delay: 2s, 12s;
 }
 #fourth .wave-trans, #fourth .wave-rot {
-    animation-delay: 0s, 7.5s;
+    animation-delay: 3s, 13s;
 }
 
 
@@ -226,16 +226,16 @@ p {
 
 .wave-trans {
     position: absolute;
-    width: 6em;
-    height: 6em;
-    animation: wave-start-trans 7.5s, wave-trans 5s ease-in-out infinite;
+    width: 8em;
+    height: 8em;
+    animation: wave-start-trans 10s, wave-trans 10s ease-in-out infinite;
 }
 @keyframes wave-start-trans {
     0% {
         animation-timing-function: ease-out;
         transform: translateY(0%);
     }
-    66% {
+    50% {
         animation-timing-function: ease-in;
         transform: translateY(-50%);
     }
@@ -248,7 +248,7 @@ p {
         transform: translateY(-55%);
     }
     50% {
-        transform: translateY(-50%);
+        transform: translateY(-52.5%);
     }
     100% {
         transform: translateY(-55%);
@@ -256,10 +256,10 @@ p {
 }
 .wave-rot {
     position: absolute;
-    width: 6em;
-    height: 6em;
+    width: 8em;
+    height: 8em;
     border-radius: 35%;
-    animation: wave-start-rot 7.5s, wave-rot 5s linear infinite;
+    animation: wave-start-rot 10s, wave-rot 10s linear infinite;
     box-shadow: 0 0 0 0.5rem var(--wave-shadow);
 }
 @keyframes wave-start-rot {
@@ -267,7 +267,7 @@ p {
         animation-timing-function: ease-out;
         transform: rotate(-720deg);
     }
-    66% {
+    50% {
         animation-timing-function: ease-in;
         transform: rotate(0deg);
     }
@@ -277,16 +277,29 @@ p {
 }
 @keyframes wave-rot {
     0% {
-        transform: rotate(45deg);
+        transform: rotate(45deg) translateY(0em);
+    }
+    16% {
+        transform: rotate(90deg) translateY(-.125em);
+    }
+    33% {
+        transform: rotate(135deg) translateY(0em);
     }
     50% {
-        transform: rotate(180deg);
+        transform: rotate(180deg) translateY(-.125em);
+    }
+    66% {
+        transform: rotate(225deg) translateY(0em);
+    }
+    84% {
+        transform: rotate(270deg) translateY(-.125em);
     }
     100% {
-        transform: rotate(315deg);
+        transform: rotate(315deg) translateY(0em);
     }
 }
 .brand-name {
+    margin-top: 4em;
     font-size: .7em;
     text-align: center;
     animation: brand-name-wave-trans 2s infinite;
@@ -298,7 +311,7 @@ p {
     }
     50% {
         animation-timing-function: ease-out;
-        transform: translateY(-10%);
+        transform: translateY(-.125em);
     }
     100% {
         transform: translateY(0%);
