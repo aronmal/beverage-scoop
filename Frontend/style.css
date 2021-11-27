@@ -5,13 +5,25 @@
     --button-bg-hover: rgba(255,255,255,.5);
     --wave-bg: rgb(127,159,191);
     
+
     --fanta-bg: #fd8e18;
-    --fanta-brand-color: #1f4ead;
     --fanta-brand-bg: #fd8e18;
+    --fanta-brand-color: #1f4ead;
+
     --cola-bg: #8e0300;
     --cola-brand-bg: red;
+
     --sprite-bg: lightsteelblue;
     --sprite-brand-bg: #519d4f;
+
+    --water-bg: #197fe6;
+    --water-brand-bg: #33a6cc;
+
+    --special-bg: #5c41e1;
+    --special-brand-bg: #cc33cc;
+
+    --beer-bg: #e28538;
+    --beer-brand-bg: #4a2328;
 }
 
 /* color themes */
@@ -50,6 +62,48 @@
 }
 .sprite .wave-color {
     background: var(--sprite-bg);
+}
+
+.water .svg-div::before {
+    background-color: var(--water-bg);
+}
+.water .brand-name {
+    color: white;
+    background: var(--water-brand-bg);
+    box-shadow: 0 0 0 4px white;
+}
+.water .wave-color {
+    background: var(--water-bg);
+}
+
+.special .svg-div::before {
+    background-color: var(--special-bg);
+}
+.special .brand-name {
+    color: white;
+    background: var(--special-brand-bg);
+    box-shadow: 0 0 0 4px white;
+}
+.special .wave-color {
+    background: var(--special-bg);
+}
+
+.beer .svg-div::before {
+    background-color: var(--beer-bg);
+}
+.beer .brand-name {
+    color: white;
+    background: var(--beer-brand-bg);
+    box-shadow: 0 0 0 4px white;
+}
+.beer .wave-trans {
+    margin-bottom: 1em;
+}
+.beer .wave-rot {
+    box-shadow: 0 0 0 .5em #edb248a0;
+}
+.beer .wave-color {
+    background: #f7eeba;
 }
 
 /* general rules */
@@ -121,7 +175,7 @@ p {
 }
 .drink-level .svg-div {
     opacity: .75;
-    border: .25em solid royalblue;
+    /* border: .25em solid royalblue; */
 }
 .drink-level .svg-div > p{
     text-shadow: 0 0 8px white;
@@ -157,6 +211,7 @@ p {
     width: 3em;
     height: 5em;
     overflow: hidden;
+    border: .05em solid black;
 }
 #first .wave-trans, #first .wave-rot {
     animation-delay: 0s, 10s;
