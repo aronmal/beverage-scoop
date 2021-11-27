@@ -1,19 +1,15 @@
 :root {
     --bg-color: #98b2cb;
-    --header-bg: rgba(255,255,255,0.75);
-    --button-bg: rgba(255,255,255,0.25);
-    --button-bg-hover: rgba(255,255,255,0.5);
+    --header-bg: rgba(255,255,255,.75);
+    --button-bg: rgba(255,255,255,.25);
+    --button-bg-hover: rgba(255,255,255,.5);
     --wave-bg: rgb(127,159,191);
-    --wave-shadow: #fff5;
     
-    --fanta-wave-bg: #c0976b;
     --fanta-bg: #fd8e18;
     --fanta-brand-color: #1f4ead;
     --fanta-brand-bg: #fd8e18;
-    --cola-wave-bg: #88515f;
     --cola-bg: #8e0300;
     --cola-brand-bg: red;
-    --sprite-wave-bg: #99b2ce;
     --sprite-bg: lightsteelblue;
     --sprite-brand-bg: #519d4f;
 }
@@ -28,8 +24,8 @@
     background: var(--fanta-brand-bg);
     box-shadow: 0 0 0 4px white;
 }
-.fanta .wave-rot {
-    background: var(--fanta-wave-bg);
+.fanta .wave-color {
+    background: var(--fanta-bg);
 }
 
 .cola .svg-div::before {
@@ -40,8 +36,8 @@
     background: var(--cola-brand-bg);
     box-shadow: 0 0 0 4px black;
 }
-.cola .wave-rot {
-    background: var(--cola-wave-bg);
+.cola .wave-color {
+    background: var(--cola-bg);
 }
 
 .sprite .svg-div::before {
@@ -52,8 +48,8 @@
     background: var(--sprite-brand-bg);
     box-shadow: 0 0 0 4px white;
 }
-.sprite .wave-rot {
-    background: var(--sprite-wave-bg);
+.sprite .wave-color {
+    background: var(--sprite-bg);
 }
 
 /* general rules */
@@ -91,20 +87,13 @@ body {
 p {
     cursor: default;
 }
-#header-right p {
-    font-family: 'Schoolbell', cursive;
-}
-#header-bar p {
+.drink-level > p {
     font-size: 3em;
-}
-#header-bar > p {
-    margin: 0 1em;
-}
-#header-right > p {
-    margin: 0 4rem 0 1rem;
+    font-family: 'Schoolbell', cursive;
+    margin: 0 3rem 0 1rem;
 }
 .svg-div p {
-    padding: .125em .25em;
+    padding: 0 .25em;
     border-radius: .125em;
     /* font-family: 'Merienda One', cursive; */
     font-family: 'Sriracha', cursive;
@@ -121,27 +110,53 @@ p {
     align-items: center;
     justify-content: space-between;
     /* padding: 1em 2em; */
+    z-index: -2;
 }
 #header-bar div {
     align-items: center;
 }
 #time {
-    font-size: 5em !important;
+    font-size: 5em;
+    margin: 0 1em;
+}
+.drink-level .svg-div {
+    opacity: .75;
+    border: .25em solid royalblue;
+}
+.drink-level .svg-div > p{
+    text-shadow: 0 0 8px white;
+    font-size: 1.25em;
+    z-index: 1;
+}
+.drink-level .wave-trans {
+    animation: none;
+    transform: translateY(-50%);
+}
+.drink-level .wave-rot {
+    background: var(--header-bg);
+    animation: none;
+    box-shadow: 0 0 0 .25em #fffa;
+}
+.drink-level .wave-color {
+    opacity: .3;
 }
 
 /* main */
 
-#content .svg-div::before {
+.svg-div::before  {
     content: '';
     position: absolute;
     width: 3em;
     height: 5em;
     z-index: -1;
 }
-#content .svg-div {
+.svg-div {
     position: relative;
     align-items: center;
     justify-content: center;
+    width: 3em;
+    height: 5em;
+    overflow: hidden;
 }
 #first .wave-trans, #first .wave-rot {
     animation-delay: 0s, 10s;
@@ -156,20 +171,11 @@ p {
     animation-delay: 3s, 13s;
 }
 
-
-
-
-
-.svg-div {
-    width: 3em;
-    height: 5em;
-    border: 0.25em solid royalblue;
-    overflow: hidden;
-}
 #content {
     height: 100%;
     justify-content: space-around;
     margin-bottom: 4em;
+    z-index: -3;
 }
 #content-div {
     /* padding: 0 2vw; */
@@ -184,15 +190,24 @@ p {
     margin: .125em;
 }
 #content-div .svg-div {
-    border: 0.05em solid black;
+    border: .05em solid black;
+}
+#content .wave-rot {
+    background: var(--bg-color);
+    overflow: hidden;
+}
+.wave-color {
+    height: 100%;
+    width: 100%;
+    opacity: .5;
 }
 .value {
     height: 3.6em;
-    border: 0.05em solid black;
+    border: .05em solid black;
 }
 .value button {
-    transition: 0.2s;
-    -webkit-transition: 0.2s;
+    transition: .2s;
+    -webkit-transition: .2s;
     font-size: 1em;
     width: 100%;
     height: 100%;
@@ -209,13 +224,13 @@ p {
 }
 .value p {
     font-size: .7em;
-    padding: 0.125em 0.25em;
-    border-top: 0.05em solid black;
-    border-bottom: 0.05em solid black;
+    padding: .125em .25em;
+    border-top: .05em solid black;
+    border-bottom: .05em solid black;
 }
 .value button:hover {
-    transition: 0.2s;
-    -webkit-transition: 0.2s;
+    transition: .2s;
+    -webkit-transition: .2s;
     background: var(--button-bg-hover);
 }
 
@@ -260,7 +275,7 @@ p {
     height: 8em;
     border-radius: 35%;
     animation: wave-start-rot 10s, wave-rot 10s linear infinite;
-    box-shadow: 0 0 0 0.5rem var(--wave-shadow);
+    box-shadow: 0 0 0 .125em #fff5;
 }
 @keyframes wave-start-rot {
     0% {
