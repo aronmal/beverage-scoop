@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <title>beverage scoop</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>beverage scoop</title>
+    <script src="index.js" defer></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,47 +22,47 @@
         <div id="header-right" class="flex-row">
             <div class="flex-row drink-level fanta">
                 <div class="svg-div flex-col">
-                    <p>50%</p>
+                    <p class="level-percent">50%</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
                         </div>
                     </div>
                 </div>
-                <p>Fanta</p>
+                <p class="drink-name">Fanta</p>
             </div>
             <div class="flex-row drink-level cola">
                 <div class="svg-div flex-col">
-                    <p>50%</p>
+                    <p class="level-percent">50%</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
                         </div>
                     </div>
                 </div>
-                <p>Cola</p>
+                <p class="drink-name">Cola</p>
             </div>
             <div class="flex-row drink-level sprite">
                 <div class="svg-div flex-col">
-                    <p>50%</p>
+                    <p class="level-percent">50%</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
                         </div>
                     </div>
                 </div>
-                <p>Sprite</p>
+                <p class="drink-name">Sprite</p>
             </div>
             <div class="flex-row drink-level water">
                 <div class="svg-div flex-col">
-                    <p>50%</p>
+                    <p class="level-percent">50%</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
                         </div>
                     </div>
                 </div>
-                <p>Wasser</p>
+                <p class="drink-name">Wasser</p>
             </div>
         </div>
     </div>
@@ -69,7 +70,7 @@
         <div id="content-div" class="flex-row">
             <div id="first" class="flex-row fanta">
                 <div class="svg-div flex-col">
-                    <p class="brand-name">Fanta</p>
+                    <p class="brand-name drink-name">Fanta</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
@@ -84,7 +85,7 @@
             </div>
             <div id="second" class="flex-row cola">
                 <div class="svg-div flex-col">
-                    <p class="brand-name">Cola</p>
+                    <p class="brand-name drink-name">Cola</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
@@ -93,13 +94,13 @@
                 </div>
                 <div class="value grid-3-col">
                     <button><span>&lt;</span></button>
-                    <p>35%</p>
+                    <p class="percentage">35%</p>
                     <button><span>&gt;</span></button>
                 </div>
             </div>
             <div id="third" class="flex-row sprite">
                 <div class="svg-div flex-col">
-                    <p class="brand-name">Sprite</p>
+                    <p class="brand-name drink-name">Sprite</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
@@ -108,13 +109,13 @@
                 </div>
                 <div class="value grid-3-col">
                     <button><span>&lt;</span></button>
-                    <p>20%</p>
+                    <p class="percentage">20%</p>
                     <button><span>&gt;</span></button>
                 </div>
             </div>
             <div id="fourth" class="flex-row water">
                 <div class="svg-div flex-col">
-                    <p class="brand-name">Wasser</p>
+                    <p class="brand-name drink-name">Wasser</p>
                     <div class="wave-trans">
                         <div class="wave-rot">
                             <div class="wave-color"></div>
@@ -123,7 +124,7 @@
                 </div>
                 <div class="value grid-3-col">
                     <button><span>&lt;</span></button>
-                    <p>10%</p>
+                    <p class="percentage">10%</p>
                     <button><span>&gt;</span></button>
                 </div>
             </div>
