@@ -68,6 +68,25 @@
     </div>
     <div id="content" class="flex-col">
         <div id="content-div" class="flex-row">
+
+            <template id="content-template">
+                <div id="content-template-unassigned" class="flex-row">
+                    <div class="drink-div flex-col">
+                        <p class="brand-name drink-name"></p>
+                        <div class="wave-trans">
+                            <div class="wave-rot">
+                                <div class="wave-color"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="value grid-3-col">
+                        <button class="percent-up"><span>&lt;</span></button>
+                        <p class="percentage"></p>
+                        <button class="percent-down"><span>&gt;</span></button>
+                    </div>
+                </div>
+            </template>
+
             <div id="first" class="flex-row fanta">
                 <div class="drink-div flex-col">
                     <p class="brand-name drink-name">Fanta</p>
@@ -83,6 +102,7 @@
                     <button class="percent-down"><span>&gt;</span></button>
                 </div>
             </div>
+            
             <div id="second" class="flex-row cola">
                 <div class="drink-div flex-col">
                     <p class="brand-name drink-name">Cola</p>
@@ -98,6 +118,7 @@
                     <button class="percent-down"><span>&gt;</span></button>
                 </div>
             </div>
+
             <div id="third" class="flex-row sprite">
                 <div class="drink-div flex-col">
                     <p class="brand-name drink-name">Sprite</p>
@@ -113,6 +134,7 @@
                     <button class="percent-down"><span>&gt;</span></button>
                 </div>
             </div>
+<!-- 
             <div id="fourth" class="flex-row water">
                 <div class="drink-div flex-col">
                     <p class="brand-name drink-name">Wasser</p>
@@ -128,6 +150,7 @@
                     <button class="percent-down"><span>&gt;</span></button>
                 </div>
             </div>
+             -->
         </div>
     </div>
 </body>

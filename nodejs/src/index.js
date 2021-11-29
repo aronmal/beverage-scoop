@@ -24,6 +24,19 @@ for (var i = 0; i < buttons.length; ++i) {
 //     }
 // }
 
+const template = document.getElementById('content-template')
+const templateClone = template.content.cloneNode(true)
+content.appendChild(templateClone)
+
+const none = document.getElementById('content-template-unassigned')
+none.id = ('fourth')
+const fourth = document.getElementById('fourth')
+fourth.classList.add("special")
+fourth.getElementsByClassName('drink-name')[0].innerText = 'Spezial'
+fourth.getElementsByClassName('percentage')[0].innerText = '20%'
+
+
+
 function test3() {
     if (true) {
         buttons[0].addEventListener('click', e => {
@@ -94,7 +107,7 @@ await fetch('/api/post', postOptions)
     .then(data => console.log(data))
     .catch(error => console.log(error))
 
-await fetch('/test', getOptions)
+await fetch('/api/test', getOptions)
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(error => console.log(error))

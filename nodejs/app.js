@@ -22,8 +22,8 @@ app.get('/index.js', (req,res) => {res.sendFile(path.join(__dirname, 'src/index.
 app.get('/style.css', (req,res) => {res.sendFile(path.join(__dirname, 'src/style.css'))})
 
 // GET 'Hello World!'
-app.get('/hello', (req,res) => res.send('Hello World!'))
-app.get('/test', (req,res) => {
+app.get('/api/hello', (req,res) => res.send('Hello World!'))
+app.get('/api/test', (req,res) => {
     test()
     res.send(JSON.parse(configFileData))
 })
