@@ -89,12 +89,12 @@ const getOptions = {
     }
 }
 async function fetching() {
-await fetch('http://localhost:5000/api/post', postOptions)
+await fetch('/api/post', postOptions)
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(error => console.log(error))
 
-await fetch('http://localhost:5000/test', getOptions)
+await fetch('/test', getOptions)
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(error => console.log(error))

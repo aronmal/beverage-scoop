@@ -15,14 +15,14 @@ app.use(express.json())
 app.use(cors());
 
 // NGINX Replacement
-// app.get('/', (req,res) => {res.sendFile(path.join(__dirname, 'src/index.html'))})
-// app.get('/index.html', (req,res) => {res.sendFile(path.join(__dirname, 'src/index.html'))})
-// app.get('/favicon.ico', (req,res) => {res.sendFile(path.join(__dirname, 'src/favicon.ico'))})
-// app.get('/index.js', (req,res) => {res.sendFile(path.join(__dirname, 'src/index.js'))})
-// app.get('/style.css', (req,res) => {res.sendFile(path.join(__dirname, 'src/style.css'))})
+app.get('/', (req,res) => {res.sendFile(path.join(__dirname, 'src/index.html'))})
+app.get('/index.html', (req,res) => {res.sendFile(path.join(__dirname, 'src/index.html'))})
+app.get('/favicon.ico', (req,res) => {res.sendFile(path.join(__dirname, 'src/favicon.ico'))})
+app.get('/index.js', (req,res) => {res.sendFile(path.join(__dirname, 'src/index.js'))})
+app.get('/style.css', (req,res) => {res.sendFile(path.join(__dirname, 'src/style.css'))})
 
 // GET 'Hello World!'
-// app.get('/', (req,res) => res.send('Hello World!'))
+app.get('/hello', (req,res) => res.send('Hello World!'))
 app.get('/test', (req,res) => {
     test()
     res.send(JSON.parse(configFileData))
