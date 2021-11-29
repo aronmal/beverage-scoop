@@ -1,4 +1,8 @@
 # TODO
-- properly add md files!
-- finish Readme
-- research!
+
+- Finish Code:
+    - ConnectionTest
+- Add Code:
+    - Pump Controller
+    - Bottle fill checker
+    - Glass fill checker 

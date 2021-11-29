@@ -1,5 +1,8 @@
 # Readme
 
-# Running scripts
-cd ./Backend
-python ./rpi/main.py
+# script list:
+- rpi:
+    - ConnectionTest.py -- this script will be the rpi part of a connection test.
+    - main.py -- "main" script; likly will be scraped
+- PumpController:
+    - ./src/main.cpp -- this script will controll the pumps
