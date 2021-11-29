@@ -247,14 +247,12 @@ p {
 .bubble-div {
     position: absolute;
     border-radius: 50%;
-    animation: bubblesY 5s linear infinite;
     z-index: -1;
 }
 .bubble {
     position: absolute;
     border-radius: 50%;
     background: #fff4;
-    animation: bubblesX .4s ease-in-out alternate infinite;
 }
 @keyframes bubblesY {
     From {
