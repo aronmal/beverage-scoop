@@ -135,6 +135,10 @@ body {
     justify-content: center;
     align-items: center;
 }
+.grid-3-col > * {
+    width: 8rem;
+    text-align: center;
+}
 
 /* typography */
 
