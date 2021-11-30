@@ -17,13 +17,14 @@ app.use(cors());
 app.get('/api/get', (req,res) => {
     readConfig()
     res.send(JSON.parse(configFileData))
-    console.log('[GET request served]')
+    console.log('[GET] Request served')
 })
 app.post('/api/post', (req,res) => {
     readConfig()
+    console.log('[POST] Recieving request:')
     newConfigFileData = req.body
     console.log(req.body)
-    console.log('[POST request received]')
+    console.log('[POST] Request received.')
     saveConfig()
     res.json({
         status: 'success',
@@ -46,9 +47,10 @@ async function readConfig() {
 function saveConfig() {
     if ((configFileData !== newConfigFileData) && (newConfigFileData !== undefined))  {
         try {
+            console.log('[Info] Saving new config ...')
             fs.writeFileSync('config.json', JSON.stringify(newConfigFileData))
             //file written successfully
-            console.log('Data written')
+            console.log('[Info] Data written, config saved!')
         } catch (err) {
             //error message
             console.error(err)
@@ -59,32 +61,5 @@ function saveConfig() {
         console.log('No writing action, new config is undefined')
     } else {
         console.log('New config not saved, an unknown error accured!')
-    }
-}
-
-function printConfigData() {
-    console.log(configFileData.length)
-
-    // print all data
-    var percent = 0
-    configFileData.forEach(data => {
-        percent = percent + data.percentage;
-        console.log(percent)
-    });
-
-    if (percent == 100) {
-        console.log('100% reached!')
-    } else {
-        console.log('Somthing went wrong, "percent" is ' + percent + '% and not 100%')
-    }
-}
-
-
-function editConfig() {
-    newConfigFileData = JSON.parse(configFileData)
-    if (newConfigFileData.length == 4) {
-        newConfigFileData[newConfigFileData.length] = newConfigFileData[newConfigFileData.length-1]
-    } else {
-        newConfigFileData.pop()
     }
 }

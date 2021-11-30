@@ -7,7 +7,6 @@ const content = document.getElementById('content-div')
 
 var configData
 var newConfigData
-// newConfigData = [{"drinks": [{"drinkname":"Fanta","class":"fanta","level":50,"percentage":20},{"drinkname":"Cola","class":"cola","level":50,"percentage":40},{"drinkname":"Sprite","class":"sprite","level":50,"percentage":25},{"drinkname":"Wasser","class":"water","level":50,"percentage":15}],"ids": ["first","second","third","fourth"],"template": [{"drinkname":"Fanta","class":"fanta","level":100,"percentage":25},{"drinkname":"Cola","class":"cola","level":100,"percentage":25},{"drinkname":"Sprite","class":"sprite","level":100,"percentage":25},{"drinkname":"Wasser","class":"water","level":100,"percentage":25},{"drinkname":"Spezial","class":"special","level":100,"percentage":25},{"drinkname":"Bier","class":"beer","level":100,"percentage":25}]}]
 
 // clock function
 function clock() {
@@ -34,9 +33,9 @@ async function deleteAll() {
 
     await fetchLoad()
     console.log('[WARN] Starting to delete drink-divs ...')
-    for (var i = 0; i < configData[0].ids.length; ++i) {
-        items.push(document.getElementById(configData[0].ids[i] + '-header'))
-        items.push(document.getElementById(configData[0].ids[i]))
+    for (var i = 0; i < configData.ids.length; ++i) {
+        items.push(document.getElementById(configData.ids[i] + '-header'))
+        items.push(document.getElementById(configData.ids[i]))
     }
     for (var i = 0; i < items.length; ++i) {
         items[i].parentNode.removeChild(items[i])
@@ -47,9 +46,9 @@ async function deleteAll() {
 async function createDivElements() {
     await fetchLoad()
     console.log('[INFO] Starting to create drink-divs ...')
-    for (var i = 0; i < configData[0].drinks.length; ++i) {
-        const drink = configData[0].drinks[i]
-        const id = configData[0].ids[i]
+    for (var i = 0; i < configData.drinks.length; ++i) {
+        const drink = configData.drinks[i]
+        const id = configData.ids[i]
         const headerId = id + '-header'
         const headerTemplateClone = headerTemplate.content.cloneNode(true)
         headerRight.appendChild(headerTemplateClone)
@@ -69,7 +68,7 @@ async function createDivElements() {
         contentItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         contentItem.getElementsByClassName('percentage')[0].innerText = drink.percentage + '%'
     }
-    console.log(`[INFO] All done, ${configData[0].drinks.length} drinks created!`)
+    console.log(`[INFO] All done, ${configData.drinks.length} drinks created!`)
 }
 
 function buttonsAddingEventListener() {
@@ -100,8 +99,8 @@ async function buttonClicked(theButton) {
     var percentageSum = 0
 
     await fetchLoad()
-    for (var i = 0; i < configData[0].drinks.length; ++i) {
-        if (drink == configData[0].drinks[i].class) {
+    for (var i = 0; i < configData.drinks.length; ++i) {
+        if (drink == configData.drinks[i].class) {
             if (state == 'percent-up'){
                 e = i
                 diff = 5
@@ -116,11 +115,11 @@ async function buttonClicked(theButton) {
         }
     }
     if (status == 'ok') {
-        newConfigData[0].drinks[e].percentage = configData[0].drinks[e].percentage + diff
-        for (var i = 0; i < newConfigData[0].drinks.length; ++i) {
-            percentageSum = percentageSum + newConfigData[0].drinks[i].percentage
+        newConfigData.drinks[e].percentage = configData.drinks[e].percentage + diff
+        for (var i = 0; i < newConfigData.drinks.length; ++i) {
+            percentageSum = percentageSum + newConfigData.drinks[i].percentage
         }
-        if (newConfigData[0].drinks[e].percentage < 0) {
+        if (newConfigData.drinks[e].percentage < 0) {
             errorMessage('negative number not allowed')
             return displayErrorMessage('Weniger als 0% geht nicht! ;)')
         } else if (percentageSum > 100) {
@@ -128,8 +127,8 @@ async function buttonClicked(theButton) {
             return displayErrorMessage('Alles zusammen ist mehr als 100%!')
         } else {
             await fetchSave()
-            const contentItem = document.getElementById(configData[0].ids[e])
-            contentItem.getElementsByClassName('percentage')[0].innerText = configData[0].drinks[e].percentage + '%'
+            const contentItem = document.getElementById(configData.ids[e])
+            contentItem.getElementsByClassName('percentage')[0].innerText = configData.drinks[e].percentage + '%'
             console.log(`[All done! ${drink} has ${state}ed and saved]`)
         }
     } else {
@@ -188,7 +187,8 @@ async function fetchLoad() {
     }
     await fetch('/api/get', getOptions)
         .then(res => res.json())
-        .then(data => {configData = data
+        .then(data => {
+            configData = data
             newConfigData = configData
             console.log('[INFO] Received configData')})
         .catch(error => {console.log(error)
