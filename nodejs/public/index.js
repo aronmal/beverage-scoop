@@ -111,7 +111,7 @@ async function buttonClicked(theButton) {
                 diff = -5
                 status = 'ok'
             } else {
-                console.log('[ERROR] Button state (class) not valid... Please Check!')
+                errorMessage('Button state (class) not valid... Please Check!')
             }
         }
     }
@@ -121,9 +121,11 @@ async function buttonClicked(theButton) {
             percentageSum = percentageSum + newConfigData[0].drinks[i].percentage
         }
         if (newConfigData[0].drinks[e].percentage < 0) {
-            await errorMessage('negative number not allowed')
+            errorMessage('negative number not allowed')
+            return displayErrorMessage('Weniger als 0% geht nicht! ;)')
         } else if (percentageSum > 100) {
-            await errorMessage('over 100%')
+            errorMessage('over 100%')
+            return displayErrorMessage('Alles zusammen ist mehr als 100%!')
         } else {
             await fetchSave()
             const contentItem = document.getElementById(configData[0].ids[e])
@@ -131,7 +133,7 @@ async function buttonClicked(theButton) {
             console.log(`[All done! ${drink} has ${state}ed and saved]`)
         }
     } else {
-        console.log('[ERROR] Button drink-name (class) not valid... Please Check!')
+        errorMessage('Button drink-name (class) not valid... Please Check!')
     }
 }
 
@@ -186,9 +188,12 @@ async function fetchLoad() {
     }
     await fetch('/api/get', getOptions)
         .then(res => res.json())
-        .then(data => {configData = data; newConfigData = configData})
-        .catch(error => console.log(error))
-        console.log('[INFO] Received configData')
+        .then(data => {configData = data
+            newConfigData = configData
+            console.log('[INFO] Received configData')})
+        .catch(error => {console.log(error)
+            errorMessage('No Connection to Backend/API')
+            displayErrorMessage('Fehler bei abrufen der Konfiguration!')})
 }
 async function fetchSave() {
     const postOptions = {
@@ -199,10 +204,20 @@ async function fetchSave() {
         body: JSON.stringify(newConfigData)
     }
     await fetch('/api/post', postOptions)
-        .then(res => res.json())
-        .then(data => console.log(data))
+        // .then(res => res.json())
+        // .then(data => console.log(data))
         .catch(error => console.log(error))
     fetchLoad()
+}
+
+function displayErrorMessage(errorMessage) {
+    const p = document.getElementById('message')
+    p.innerHTML = errorMessage
+    p.style.animation = 'error-message 2s'
+    setTimeout (() => {
+        p.innerHTML = null
+        p.style.animation = null
+    }, 2000)
 }
 
 async function startup() {

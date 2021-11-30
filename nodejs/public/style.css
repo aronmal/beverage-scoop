@@ -225,9 +225,18 @@ p {
 }
 
 #content {
+    position: relative;
     height: 100%;
     justify-content: space-around;
     margin-bottom: 4em;
+}
+#message {
+    position: absolute;
+    color: red;
+    top: 0;
+    align-self: center;
+    font-size: 5em;
+    padding-top: 1em;
 }
 #content-div {
     /* padding: 0 2vw; */
@@ -408,6 +417,17 @@ p {
     }
     100% {
         transform: translateY(0%);
+    }
+}
+@keyframes error-message {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
