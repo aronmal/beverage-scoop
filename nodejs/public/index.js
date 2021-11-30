@@ -29,10 +29,24 @@ clock()
 // execute every second to refresh in real time 
 setInterval(clock, 1000);
 
-async function createDivElements() {
+async function deleteAll() {
+    let items = []
 
     await fetchLoad()
-    console.log('Starting to create drink-divs ...')
+    console.log('[WARN] Starting to delete drink-divs ...')
+    for (var i = 0; i < configData[0].ids.length; ++i) {
+        items.push(document.getElementById(configData[0].ids[i] + '-header'))
+        items.push(document.getElementById(configData[0].ids[i]))
+    }
+    for (var i = 0; i < items.length; ++i) {
+        items[i].parentNode.removeChild(items[i])
+    }
+}
+
+
+async function createDivElements() {
+    await fetchLoad()
+    console.log('[INFO] Starting to create drink-divs ...')
     for (var i = 0; i < configData[0].drinks.length; ++i) {
         const drink = configData[0].drinks[i]
         const id = configData[0].ids[i]
@@ -54,9 +68,8 @@ async function createDivElements() {
         contentItem.classList.add(drink.class)
         contentItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         contentItem.getElementsByClassName('percentage')[0].innerText = drink.percentage + '%'
-        console.log(`[Item] #${id} ${drink.drinkname} created`)
     }
-    console.log(`All done! ${configData[0].drinks.length} created`)
+    console.log(`[INFO] All done, ${configData[0].drinks.length} drinks created!`)
 }
 
 function buttonsAddingEventListener() {
@@ -175,7 +188,7 @@ async function fetchLoad() {
         .then(res => res.json())
         .then(data => {configData = data; newConfigData = configData})
         .catch(error => console.log(error))
-        console.log('[Received configData]')
+        console.log('[INFO] Received configData')
 }
 async function fetchSave() {
     const postOptions = {
@@ -196,6 +209,11 @@ async function startup() {
     await createDivElements()
     launchBubbles()
     buttonsAddingEventListener()
+}
+
+async function pageRefresh() {
+    deleteAll()
+    startup()
 }
 
 // starting up
