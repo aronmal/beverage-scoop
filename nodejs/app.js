@@ -14,16 +14,17 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(cors());
 
-// GET 'Hello World!'
-app.get('/api/hello', (req,res) => res.send('Hello World!'))
-console.log('Test running on: http://localhost:5000/api/hello')
-app.get('/api/test', (req,res) => {
-    test()
+app.get('/api/get', (req,res) => {
+    readConfig()
     res.send(JSON.parse(configFileData))
+    console.log('[GET request served]')
 })
-console.log('Test running on: http://localhost:5000/api/test')
 app.post('/api/post', (req,res) => {
+    readConfig()
+    newConfigFileData = req.body
     console.log(req.body)
+    console.log('[POST request received]')
+    saveConfig()
     res.json({
         status: 'success',
         message: 'received'
@@ -33,13 +34,32 @@ app.post('/api/post', (req,res) => {
 
 
 
-function readConfig() {
+async function readConfig() {
     try {
-        configFileData = fs.readFileSync('test.json', 'utf8')
-        console.log('Data read')
+        configFileData = fs.readFileSync('config.json', 'utf8')
       } catch (err) {
         console.error(err)
       }
+}
+
+// if new configuration, write to file
+function saveConfig() {
+    if ((configFileData !== newConfigFileData) && (newConfigFileData !== undefined))  {
+        try {
+            fs.writeFileSync('config.json', JSON.stringify(newConfigFileData))
+            //file written successfully
+            console.log('Data written')
+        } catch (err) {
+            //error message
+            console.error(err)
+        }
+    } else if (configFileData !== newConfigFileData) {
+        console.log('No writing action, new config and config file are the same.')
+    } else if (newConfigFileData == undefined) {
+        console.log('No writing action, new config is undefined')
+    } else {
+        console.log('New config not saved, an unknown error accured!')
+    }
 }
 
 function printConfigData() {
@@ -67,31 +87,4 @@ function editConfig() {
     } else {
         newConfigFileData.pop()
     }
-}
-
-// if new configuration, write to file
-function saveConfig() {
-    if ((configFileData !== newConfigFileData) && (newConfigFileData !== undefined))  {
-        try {
-            fs.writeFileSync('test.json', JSON.stringify(newConfigFileData))
-            //file written successfully
-            console.log('Data written')
-        } catch (err) {
-            //error message
-            console.error(err)
-        }
-    } else if (configFileData !== newConfigFileData) {
-        console.log('No writing action, new config and config file are the same.')
-    } else if (newConfigFileData == undefined) {
-        console.log('No writing action, new config is undefined')
-    } else {
-        console.log('New config not saved, an unknown error accured!')
-    }
-}
-
-function test() {
-    readConfig()
-    // editConfig()
-    saveConfig()
-    readConfig()
 }

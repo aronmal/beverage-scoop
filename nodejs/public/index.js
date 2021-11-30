@@ -1,4 +1,4 @@
-
+// initialising some things
 const headerTemplate = document.getElementById('header-template')
 const contentTemplate = document.getElementById('content-template')
 const headerTime = document.getElementById('time')
@@ -6,7 +6,11 @@ const headerRight = document.getElementById('header-right')
 const content = document.getElementById('content-div')
 
 var configData
+var newConfigData
+// newConfigData = [{"drinks": [{"drinkname":"Fanta","class":"fanta","level":50,"percentage":20},{"drinkname":"Cola","class":"cola","level":50,"percentage":40},{"drinkname":"Sprite","class":"sprite","level":50,"percentage":25},{"drinkname":"Wasser","class":"water","level":50,"percentage":15}],"ids": ["first","second","third","fourth"],"template": [{"drinkname":"Fanta","class":"fanta","level":100,"percentage":25},{"drinkname":"Cola","class":"cola","level":100,"percentage":25},{"drinkname":"Sprite","class":"sprite","level":100,"percentage":25},{"drinkname":"Wasser","class":"water","level":100,"percentage":25},{"drinkname":"Spezial","class":"special","level":100,"percentage":25},{"drinkname":"Bier","class":"beer","level":100,"percentage":25}]}]
+console.log(newConfigData)
 
+// clock function
 function clock() {
     var h = new Date().getHours();
     var m = new Date().getMinutes();
@@ -16,40 +20,15 @@ function clock() {
     m = m < 10 ? "0" + m : m;
     // s = s < 10 ? "0" + s : s;
 
+    //If not the same, replace
     if (headerTime.innerHTML !== `${h}:${m}`) {
         headerTime.innerHTML = `${h}:${m}`
     }
 }
-
+// execute to display without delay
 clock()
-setInterval(clock(), 1000);
-
-
-
-// const drinkDivs = content.getElementsByClassName('drink-div')
-// let buttons = []
-// const buttonsUp = document.getElementsByClassName('percent-up')
-// const buttonsDown = document.getElementsByClassName('percent-down')
-// for (var i = 0; i < buttonsUp.length; ++i) {
-//     buttons.push(buttonsUp[i])
-// }
-// for (var i = 0; i < buttonsDown.length; ++i) {
-//     buttons.push(buttonsDown[i])
-// }
-// for (var i = 0; i < buttons.length; ++i) {
-//     // console.log(buttons[i])
-// }
-// const buttonDrinkClasses = buttons[0].parentNode.parentNode.className.split(/\s+/)
-// console.log(buttonDrinkClasses[buttonDrinkClasses.length - 1])
-// $(element).attr("class").split(' ');
-
-// var classList = buttons[0].parentNode.parentNode.className.split(/\s+/);
-// for (var i = 0; i < classList.length; i++) {
-//     if (classList[i] === 'someClass') {
-//         //do something
-//     }
-// }
-
+// execute every second to refresh in real time 
+setInterval(clock, 1000);
 
 async function createDivElements() {
 
@@ -76,39 +55,75 @@ async function createDivElements() {
         contentItem.classList.add(drink.class)
         contentItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         contentItem.getElementsByClassName('percentage')[0].innerText = drink.percentage + '%'
-        console.log(`#${id} ${drink.drinkname} created`)
+        console.log(`[Item] #${id} ${drink.drinkname} created`)
     }
     console.log(`All done! ${configData[0].drinks.length} created`)
 }
 
-
-
-
-
-function test3() {
-    if (true) {
-        buttons[0].addEventListener('click', e => {
-            console.log('clicked1')
-        })
-        buttons[1].addEventListener('click', e => {
-            console.log('clicked2')
-        })
+function buttonsAddingEventListener() {
+    let buttons = []
+    const buttonsUp = document.getElementsByClassName('percent-up')
+    const buttonsDown = document.getElementsByClassName('percent-down')
+    for (var i = 0; i < buttonsUp.length; ++i) {
+        buttons.push(buttonsUp[i])
     }
-    console.log('something')
+    for (var i = 0; i < buttonsDown.length; ++i) {
+        buttons.push(buttonsDown[i])
+    }
+    for (var i = 0; i < buttons.length; ++i) {
+        const aButton = buttons[i]
+        buttons[i].addEventListener('click', () => buttonClicked(aButton))
+    }
+}
+
+async function buttonClicked(theButton) {
+    const buttonParentClasses = theButton.parentNode.parentNode.className.split(/\s+/)
+    const drink = buttonParentClasses[buttonParentClasses.length - 1]
+    const buttonState = theButton.className.split(/\s+/)
+    const state = buttonState[buttonState.length - 1]
+    var status
+    var e
+
+
+    await fetchLoad()
+    for (var i = 0; i < configData[0].drinks.length; ++i) {
+        if (drink == configData[0].drinks[i].class) {
+            if (state == 'percent-up'){
+                newConfigData[0].drinks[i].percentage = configData[0].drinks[i].percentage + 5
+                e = i
+                status = 'ok'
+            } else if (state == 'percent-down') {
+                newConfigData[0].drinks[i].percentage = configData[0].drinks[i].percentage - 5
+                e = i
+                status = 'ok'
+            } else {
+                console.log('[ERROR] Button state (class) not valid... Please Check!')
+            }
+        }
+    }
+    if (status == 'ok') {
+        console.log(`[All done! ${drink} has ${state}ed and saved]`)
+        await fetchSave()
+        const contentItem = document.getElementById(configData[0].ids[e])
+        contentItem.getElementsByClassName('percentage')[0].innerText = configData[0].drinks[e].percentage + '%'
+    } else {
+        console.log('[ERROR] Button drink-name (class) not valid... Please Check!')
+    }
 }
 
 
-// for (var i = 0; i < drinkDivs.length; ++i) {
-//     makeBubbles(drinkDivs[i])
-// }
-
-async function makeBubbles(item) {
+function launchBubbles() {
+    const drinkDivs = content.getElementsByClassName('drink-div')
+    for (var i = 0; i < drinkDivs.length; ++i) {
+        makeBubbles(drinkDivs[i])
+    }
+}
+function makeBubbles(item) {
     setInterval(() => {
         const offsetTimout = Math.round(randomNum(0,2000))
         setTimeout(() => createBubble(item), offsetTimout)
     }, 1000);
 }
-
 function createBubble(item) {
     const size = `${Math.round((randomNum(0.5,1.5)) * 100) / 100}rem`
     const left = `${Math.round(randomNum(10,90))}%`
@@ -135,33 +150,39 @@ function randomNum(min, max) {
     return Math.random() * (max - min + 1) + min
 }
 
-const data = [{"drinkname":"Fanta","class":"fanta","level":50,"percentage":20}]
-const postOptions = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-}
-const getOptions = {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-}
 async function fetchLoad() {
-await fetch('/api/test', getOptions)
-    .then(res => res.json())
-    .then(data => {configData = data; console.log(configData)})
-    .catch(error => console.log(error))
-
+    const getOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    await fetch('/api/get', getOptions)
+        .then(res => res.json())
+        .then(data => {configData = data; newConfigData = configData})
+        .catch(error => console.log(error))
+        console.log('[Received configData]')
 }
 async function fetchSave() {
-    fetch('/api/post', postOptions)
+    const postOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newConfigData)
+    }
+    await fetch('/api/post', postOptions)
         .then(res => res.json())
         .then(data => console.log(data))
         .catch(error => console.log(error))
     fetchLoad()
 }
 
-createDivElements()
+async function startup() {
+    await createDivElements()
+    launchBubbles()
+    buttonsAddingEventListener()
+}
+
+// starting up
+startup()
