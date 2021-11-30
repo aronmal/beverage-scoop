@@ -16,10 +16,12 @@ app.use(cors());
 
 // GET 'Hello World!'
 app.get('/api/hello', (req,res) => res.send('Hello World!'))
+console.log('Test running on: http://localhost:5000/api/hello')
 app.get('/api/test', (req,res) => {
     test()
     res.send(JSON.parse(configFileData))
 })
+console.log('Test running on: http://localhost:5000/api/test')
 app.post('/api/post', (req,res) => {
     console.log(req.body)
     res.json({
@@ -28,7 +30,6 @@ app.post('/api/post', (req,res) => {
     })
 })
 
-console.log('Test running on: http://localhost:5000/test')
 
 
 

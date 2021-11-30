@@ -1,18 +1,44 @@
 
+const headerTemplate = document.getElementById('header-template')
+const contentTemplate = document.getElementById('content-template')
+const headerTime = document.getElementById('time')
+const headerRight = document.getElementById('header-right')
 const content = document.getElementById('content-div')
-const drinkDivs = content.getElementsByClassName('drink-div')
-let buttons = []
-const buttonsUp = document.getElementsByClassName('percent-up')
-const buttonsDown = document.getElementsByClassName('percent-down')
-for (var i = 0; i < buttonsUp.length; ++i) {
-    buttons.push(buttonsUp[i])
+
+var configData
+
+function clock() {
+    var h = new Date().getHours();
+    var m = new Date().getMinutes();
+    // var s = new Date().getSeconds();
+
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+    // s = s < 10 ? "0" + s : s;
+
+    if (headerTime.innerHTML !== `${h}:${m}`) {
+        headerTime.innerHTML = `${h}:${m}`
+    }
 }
-for (var i = 0; i < buttonsDown.length; ++i) {
-    buttons.push(buttonsDown[i])
-}
-for (var i = 0; i < buttons.length; ++i) {
-    // console.log(buttons[i])
-}
+
+clock()
+setInterval(clock(), 1000);
+
+
+
+// const drinkDivs = content.getElementsByClassName('drink-div')
+// let buttons = []
+// const buttonsUp = document.getElementsByClassName('percent-up')
+// const buttonsDown = document.getElementsByClassName('percent-down')
+// for (var i = 0; i < buttonsUp.length; ++i) {
+//     buttons.push(buttonsUp[i])
+// }
+// for (var i = 0; i < buttonsDown.length; ++i) {
+//     buttons.push(buttonsDown[i])
+// }
+// for (var i = 0; i < buttons.length; ++i) {
+//     // console.log(buttons[i])
+// }
 // const buttonDrinkClasses = buttons[0].parentNode.parentNode.className.split(/\s+/)
 // console.log(buttonDrinkClasses[buttonDrinkClasses.length - 1])
 // $(element).attr("class").split(' ');
@@ -24,16 +50,38 @@ for (var i = 0; i < buttons.length; ++i) {
 //     }
 // }
 
-const template = document.getElementById('content-template')
-const templateClone = template.content.cloneNode(true)
-content.appendChild(templateClone)
 
-const none = document.getElementById('content-template-unassigned')
-none.id = ('fourth')
-const fourth = document.getElementById('fourth')
-fourth.classList.add("special")
-fourth.getElementsByClassName('drink-name')[0].innerText = 'Spezial'
-fourth.getElementsByClassName('percentage')[0].innerText = '20%'
+async function createDivElements() {
+
+    await fetchLoad()
+    console.log('Starting to create drink-divs ...')
+    for (var i = 0; i < configData[0].drinks.length; ++i) {
+        const drink = configData[0].drinks[i]
+        const id = configData[0].ids[i]
+        const headerId = id + '-header'
+        const headerTemplateClone = headerTemplate.content.cloneNode(true)
+        headerRight.appendChild(headerTemplateClone)
+        const headerUnassigned = document.getElementById('header-template-unassigned')
+        headerUnassigned.id = (headerId)
+        const headerItem = document.getElementById(headerId)
+        headerItem.classList.add(drink.class)
+        headerItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
+        headerItem.getElementsByClassName('level-percent')[0].innerText = drink.level + '%'
+
+        const contentTemplateClone = contentTemplate.content.cloneNode(true)
+        content.appendChild(contentTemplateClone)
+        const contentUnassigned = document.getElementById('content-template-unassigned')
+        contentUnassigned.id = (id)
+        const contentItem = document.getElementById(id)
+        contentItem.classList.add(drink.class)
+        contentItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
+        contentItem.getElementsByClassName('percentage')[0].innerText = drink.percentage + '%'
+        console.log(`#${id} ${drink.drinkname} created`)
+    }
+    console.log(`All done! ${configData[0].drinks.length} created`)
+}
+
+
 
 
 
@@ -50,9 +98,9 @@ function test3() {
 }
 
 
-for (var i = 0; i < drinkDivs.length; ++i) {
-    makeBubbles(drinkDivs[i])
-}
+// for (var i = 0; i < drinkDivs.length; ++i) {
+//     makeBubbles(drinkDivs[i])
+// }
 
 async function makeBubbles(item) {
     setInterval(() => {
@@ -101,16 +149,19 @@ const getOptions = {
         'Content-Type': 'application/json'
     }
 }
-async function fetching() {
-await fetch('/api/post', postOptions)
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error))
-
+async function fetchLoad() {
 await fetch('/api/test', getOptions)
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {configData = data; console.log(configData)})
     .catch(error => console.log(error))
+
 }
-fetching()
-test3()
+async function fetchSave() {
+    fetch('/api/post', postOptions)
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    fetchLoad()
+}
+
+createDivElements()

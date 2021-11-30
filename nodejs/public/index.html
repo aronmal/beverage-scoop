@@ -20,50 +20,21 @@
     <div id="header-bar" class="flex-row">
         <p id="time">00:00</p>
         <div id="header-right" class="flex-row">
-            <div class="flex-row drink-level fanta">
-                <div class="drink-div flex-col">
-                    <p class="level-percent">50%</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
+
+            <template id="header-template">
+                <div id="header-template-unassigned" class="flex-row drink-level">
+                    <div class="drink-div flex-col">
+                        <p class="level-percent"></p>
+                        <div class="wave-trans">
+                            <div class="wave-rot">
+                                <div class="wave-color"></div>
+                            </div>
                         </div>
                     </div>
+                    <p class="drink-name"></p>
                 </div>
-                <p class="drink-name">Fanta</p>
-            </div>
-            <div class="flex-row drink-level cola">
-                <div class="drink-div flex-col">
-                    <p class="level-percent">50%</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
-                        </div>
-                    </div>
-                </div>
-                <p class="drink-name">Cola</p>
-            </div>
-            <div class="flex-row drink-level sprite">
-                <div class="drink-div flex-col">
-                    <p class="level-percent">50%</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
-                        </div>
-                    </div>
-                </div>
-                <p class="drink-name">Sprite</p>
-            </div>
-            <div class="flex-row drink-level water">
-                <div class="drink-div flex-col">
-                    <p class="level-percent">50%</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
-                        </div>
-                    </div>
-                </div>
-                <p class="drink-name">Wasser</p>
-            </div>
+            </template>
+
         </div>
     </div>
     <div id="content" class="flex-col">
@@ -86,71 +57,7 @@
                     </div>
                 </div>
             </template>
-
-            <div id="first" class="flex-row fanta">
-                <div class="drink-div flex-col">
-                    <p class="brand-name drink-name">Fanta</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="value grid-3-col">
-                    <button class="percent-up"><span>&lt;</span></button>
-                    <p>25%</p>
-                    <button class="percent-down"><span>&gt;</span></button>
-                </div>
-            </div>
             
-            <div id="second" class="flex-row cola">
-                <div class="drink-div flex-col">
-                    <p class="brand-name drink-name">Cola</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="value grid-3-col">
-                    <button class="percent-up"><span>&lt;</span></button>
-                    <p class="percentage">35%</p>
-                    <button class="percent-down"><span>&gt;</span></button>
-                </div>
-            </div>
-
-            <div id="third" class="flex-row sprite">
-                <div class="drink-div flex-col">
-                    <p class="brand-name drink-name">Sprite</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="value grid-3-col">
-                    <button class="percent-up"><span>&lt;</span></button>
-                    <p class="percentage">20%</p>
-                    <button class="percent-down"><span>&gt;</span></button>
-                </div>
-            </div>
-<!-- 
-            <div id="fourth" class="flex-row water">
-                <div class="drink-div flex-col">
-                    <p class="brand-name drink-name">Wasser</p>
-                    <div class="wave-trans">
-                        <div class="wave-rot">
-                            <div class="wave-color"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="value grid-3-col">
-                    <button class="percent-up"><span>&lt;</span></button>
-                    <p class="percentage">10%</p>
-                    <button class="percent-down"><span>&gt;</span></button>
-                </div>
-            </div>
-             -->
         </div>
     </div>
 </body>
