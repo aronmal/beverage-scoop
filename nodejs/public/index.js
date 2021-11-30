@@ -8,7 +8,6 @@ const content = document.getElementById('content-div')
 var configData
 var newConfigData
 // newConfigData = [{"drinks": [{"drinkname":"Fanta","class":"fanta","level":50,"percentage":20},{"drinkname":"Cola","class":"cola","level":50,"percentage":40},{"drinkname":"Sprite","class":"sprite","level":50,"percentage":25},{"drinkname":"Wasser","class":"water","level":50,"percentage":15}],"ids": ["first","second","third","fourth"],"template": [{"drinkname":"Fanta","class":"fanta","level":100,"percentage":25},{"drinkname":"Cola","class":"cola","level":100,"percentage":25},{"drinkname":"Sprite","class":"sprite","level":100,"percentage":25},{"drinkname":"Wasser","class":"water","level":100,"percentage":25},{"drinkname":"Spezial","class":"special","level":100,"percentage":25},{"drinkname":"Bier","class":"beer","level":100,"percentage":25}]}]
-console.log(newConfigData)
 
 // clock function
 function clock() {
@@ -81,20 +80,22 @@ async function buttonClicked(theButton) {
     const drink = buttonParentClasses[buttonParentClasses.length - 1]
     const buttonState = theButton.className.split(/\s+/)
     const state = buttonState[buttonState.length - 1]
+
     var status
     var e
-
+    var diff
+    var percentageSum = 0
 
     await fetchLoad()
     for (var i = 0; i < configData[0].drinks.length; ++i) {
         if (drink == configData[0].drinks[i].class) {
             if (state == 'percent-up'){
-                newConfigData[0].drinks[i].percentage = configData[0].drinks[i].percentage + 5
                 e = i
+                diff = 5
                 status = 'ok'
             } else if (state == 'percent-down') {
-                newConfigData[0].drinks[i].percentage = configData[0].drinks[i].percentage - 5
                 e = i
+                diff = -5
                 status = 'ok'
             } else {
                 console.log('[ERROR] Button state (class) not valid... Please Check!')
@@ -102,15 +103,28 @@ async function buttonClicked(theButton) {
         }
     }
     if (status == 'ok') {
-        console.log(`[All done! ${drink} has ${state}ed and saved]`)
-        await fetchSave()
-        const contentItem = document.getElementById(configData[0].ids[e])
-        contentItem.getElementsByClassName('percentage')[0].innerText = configData[0].drinks[e].percentage + '%'
+        newConfigData[0].drinks[e].percentage = configData[0].drinks[e].percentage + diff
+        for (var i = 0; i < newConfigData[0].drinks.length; ++i) {
+            percentageSum = percentageSum + newConfigData[0].drinks[i].percentage
+        }
+        if (newConfigData[0].drinks[e].percentage < 0) {
+            await errorMessage('negative number not allowed')
+        } else if (percentageSum > 100) {
+            await errorMessage('over 100%')
+        } else {
+            await fetchSave()
+            const contentItem = document.getElementById(configData[0].ids[e])
+            contentItem.getElementsByClassName('percentage')[0].innerText = configData[0].drinks[e].percentage + '%'
+            console.log(`[All done! ${drink} has ${state}ed and saved]`)
+        }
     } else {
         console.log('[ERROR] Button drink-name (class) not valid... Please Check!')
     }
 }
 
+async function errorMessage(text) {
+    console.log('[ERROR] ' + text)
+}
 
 function launchBubbles() {
     const drinkDivs = content.getElementsByClassName('drink-div')
