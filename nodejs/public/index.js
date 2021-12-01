@@ -58,6 +58,17 @@ async function createDivElements() {
         headerItem.classList.add(drink.class)
         headerItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         headerItem.getElementsByClassName('level-percent')[0].innerText = drink.level + '%'
+        var transformWaveMax
+        var transformWaveMin
+        var transformWave
+        var transformBrandMax
+        var transformBrandMin
+        var transformBrand
+
+        transformWaveMax = Number(getComputedStyle(headerRight).getPropertyValue('--transform-wave-trans-max'))
+        transformWaveMin = Number(getComputedStyle(headerRight).getPropertyValue('--transform-wave-trans-min'))
+        transformWave = Math.round((configData.drinks[i].level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
+        headerItem.style.setProperty('--transform-wave-trans', transformWave + "%")
 
         const contentTemplateClone = contentTemplate.content.cloneNode(true)
         content.appendChild(contentTemplateClone)
@@ -67,6 +78,14 @@ async function createDivElements() {
         contentItem.classList.add(drink.class)
         contentItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         contentItem.getElementsByClassName('percentage')[0].innerText = drink.percentage + '%'
+        transformWaveMax = Number(getComputedStyle(content).getPropertyValue('--transform-wave-trans-max'))
+        transformWaveMin = Number(getComputedStyle(content).getPropertyValue('--transform-wave-trans-min'))
+        transformWave = Math.round((configData.drinks[i].percentage/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
+        contentItem.style.setProperty('--transform-wave-trans', transformWave + "%")
+        transformBrandMax = Number(getComputedStyle(content).getPropertyValue('--transform-brand-name-max'))
+        transformBrandMin = Number(getComputedStyle(content).getPropertyValue('--transform-brand-name-min'))
+        transformBrand = Math.round(((1-configData.drinks[i].percentage/100) * (transformBrandMax - transformBrandMin) + transformBrandMin))
+        contentItem.style.setProperty('--transform-brand-name', transformBrand + "%")
     }
     console.log(`[INFO] All done, ${configData.drinks.length} drinks created!`)
 }
@@ -129,6 +148,20 @@ async function buttonClicked(theButton) {
             await fetchSave()
             const contentItem = document.getElementById(configData.ids[e])
             contentItem.getElementsByClassName('percentage')[0].innerText = configData.drinks[e].percentage + '%'
+            var transformWaveMax
+            var transformWaveMin
+            var transformWave
+            var transformBrandMax
+            var transformBrandMin
+            var transformBrand
+            transformWaveMax = Number(getComputedStyle(content).getPropertyValue('--transform-wave-trans-max'))
+            transformWaveMin = Number(getComputedStyle(content).getPropertyValue('--transform-wave-trans-min'))
+            transformWave = Math.round((configData.drinks[e].percentage/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
+            contentItem.style.setProperty('--transform-wave-trans', transformWave + "%")
+            transformBrandMax = Number(getComputedStyle(content).getPropertyValue('--transform-brand-name-max'))
+            transformBrandMin = Number(getComputedStyle(content).getPropertyValue('--transform-brand-name-min'))
+            transformBrand = Math.round(((1-configData.drinks[e].percentage/100) * (transformBrandMax - transformBrandMin) + transformBrandMin))
+            contentItem.style.setProperty('--transform-brand-name', transformBrand + "%")
             console.log(`[All done! ${drink} has ${state}ed and saved]`)
         }
     } else {

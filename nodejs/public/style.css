@@ -168,7 +168,9 @@ p {
     align-items: center;
     justify-content: space-between;
 }
-#header-bar div {
+#header-right {
+    --transform-wave-trans-max : -85;
+    --transform-wave-trans-min : -20;
     align-items: center;
 }
 #time {
@@ -186,7 +188,7 @@ p {
 }
 .drink-level .wave-trans {
     animation: none;
-    transform: translateY(-50%);
+    transform: translateY(var(--transform-wave-trans));
 }
 .drink-level .wave-rot {
     background: var(--header-bg);
@@ -243,6 +245,10 @@ p {
     padding-top: 1em;
 }
 #content-div {
+    --transform-wave-trans-max : -85;
+    --transform-wave-trans-min : -20;
+    --transform-brand-name-max : 125;
+    --transform-brand-name-min : -50;
     /* padding: 0 2vw; */
     align-items: center;
     justify-content: space-around;
@@ -343,21 +349,21 @@ p {
     }
     50% {
         animation-timing-function: ease-in;
-        transform: translateY(-50%);
+        transform: translateY(calc(var(--transform-wave-trans) + 5%));
     }
     100% {
-        transform: translateY(-55%);
+        transform: translateY(var(--transform-wave-trans));
     }
 }
 @keyframes wave-trans {
     0% {
-        transform: translateY(-55%);
+        transform: translateY(var(--transform-wave-trans));
     }
     50% {
-        transform: translateY(-52.5%);
+        transform: translateY(calc(var(--transform-wave-trans) + 2.5%));
     }
     100% {
-        transform: translateY(-55%);
+        transform: translateY(var(--transform-wave-trans));
     }
 }
 .wave-rot {
@@ -405,22 +411,22 @@ p {
     }
 }
 .brand-name {
-    margin-top: 4em;
     font-size: .7em;
     text-align: center;
     animation: brand-name-wave-trans 2s infinite;
+    z-index: 1;
 }
 @keyframes brand-name-wave-trans {
     0% {
         animation-timing-function: ease-in;
-        transform: translateY(0%);
+        transform: translateY(var(--transform-brand-name));
     }
     50% {
         animation-timing-function: ease-out;
-        transform: translateY(-.125em);
+        transform: translateY(calc(var(--transform-brand-name) + 5%));
     }
     100% {
-        transform: translateY(0%);
+        transform: translateY(var(--transform-brand-name));
     }
 }
 @keyframes error-message {
