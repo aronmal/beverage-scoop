@@ -1,5 +1,7 @@
 # Readme
 
+[![works badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.2.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
+
 # Installing nodejs
 
 This is needed (if you haven't already installed node on your computer), because the frontend and backend are served with nodejs. Take a look in the documentation for more details about the working principle
