@@ -48,13 +48,10 @@ async function createDivElements() {
     console.log('[INFO] Starting to create drink-divs ...')
     for (var i = 0; i < configData.drinks.length; ++i) {
         const drink = configData.drinks[i]
-        const id = configData.ids[i]
-        const headerId = id + '-header'
         const headerTemplateClone = headerTemplate.content.cloneNode(true)
-        headerRight.appendChild(headerTemplateClone)
-        const headerUnassigned = document.getElementById('header-template-unassigned')
-        headerUnassigned.id = (headerId)
-        const headerItem = document.getElementById(headerId)
+        headerRight.insertBefore(headerTemplateClone,headerRight.childNodes[headerRight.childNodes.length-3])
+        const headerItems = document.getElementsByClassName('drink-level')
+        const headerItem = headerItems[headerItems.length-1]
         headerItem.classList.add(drink.class)
         headerItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         headerItem.getElementsByClassName('level-percent')[0].innerText = drink.level + '%'
@@ -64,17 +61,15 @@ async function createDivElements() {
         var transformBrandMax
         var transformBrandMin
         var transformBrand
-
         transformWaveMax = Number(getComputedStyle(headerRight).getPropertyValue('--transform-wave-trans-max'))
         transformWaveMin = Number(getComputedStyle(headerRight).getPropertyValue('--transform-wave-trans-min'))
         transformWave = Math.round((configData.drinks[i].level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
         headerItem.style.setProperty('--transform-wave-trans', transformWave + "%")
 
         const contentTemplateClone = contentTemplate.content.cloneNode(true)
-        content.appendChild(contentTemplateClone)
-        const contentUnassigned = document.getElementById('content-template-unassigned')
-        contentUnassigned.id = (id)
-        const contentItem = document.getElementById(id)
+        content.insertBefore(contentTemplateClone,content.childNodes[content.childNodes.length-3])
+        const contentItems = document.getElementsByClassName('content-drink')
+        const contentItem = contentItems[contentItems.length-1]
         contentItem.classList.add(drink.class)
         contentItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         contentItem.getElementsByClassName('percentage')[0].innerText = drink.percentage + '%'

@@ -217,16 +217,16 @@ p {
     overflow: hidden;
     border: .05em solid black;
 }
-#first .wave-trans, #first .wave-rot {
+.content-drink:nth-child(1) .wave-trans, .content-drink:nth-child(1) .wave-rot {
     animation-delay: 0s, 10s;
 }
-#second .wave-trans, #second .wave-rot {
+.content-drink:nth-child(2) .wave-trans, .content-drink:nth-child(2) .wave-rot {
     animation-delay: 1s, 11s;
 }
-#third .wave-trans, #third .wave-rot {
+.content-drink:nth-child(3) .wave-trans, .content-drink:nth-child(3) .wave-rot {
     animation-delay: 2s, 12s;
 }
-#fourth .wave-trans, #fourth .wave-rot {
+.content-drink:nth-child(4) .wave-trans, .content-drink:nth-child(4) .wave-rot {
     animation-delay: 3s, 13s;
 }
 
