@@ -1,11 +1,12 @@
 
-const cors = require('cors');
-const express = require('express')
-const app = express()
-const fs = require('fs')
+import cors from 'cors';
+import express from 'express';
+const app = express();
+import fs from 'fs';
+import { configType } from './interfaces';
 
-var configFileData
-var newConfigFileData
+let configFileData = {} as configType
+let newConfigFileData = {} as configType
 
 // Start listening on port 5000
 app.listen(5000, () => console.log('Server running on: http://localhost:5000'))
@@ -13,9 +14,9 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(cors());
 
-app.get('/api/get', (req,res) => {
+app.get('/api/get', (_req,res) => {
     readConfig()
-    res.send(JSON.parse(configFileData))
+    res.send(JSON.stringify(configFileData))
     console.log('[GET] Request served')
 })
 app.post('/api/post', (req,res) => {
@@ -36,7 +37,7 @@ app.post('/api/post', (req,res) => {
 
 async function readConfig() {
     try {
-        configFileData = fs.readFileSync('config.json', 'utf8')
+        configFileData = JSON.parse(fs.readFileSync('config.json', 'utf8'))
       } catch (err) {
         console.error(err)
       }

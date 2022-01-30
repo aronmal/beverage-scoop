@@ -221,7 +221,7 @@ async function fetchLoad() {
             console.log('[INFO] Received configData')})
         .catch(error => {console.log(error)
             errorMessage('No Connection to Backend/API')
-            displayErrorMessage('Fehler bei abrufen der Konfiguration!')})
+            displayErrorMessage('Fehler beim abrufen der Konfiguration!')})
 }
 async function fetchSave() {
     const postOptions = {
