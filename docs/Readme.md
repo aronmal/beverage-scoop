@@ -1,6 +1,6 @@
 # Readme
 
-[![works badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.2.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
+[![works badge](https://img.shields.io/badge/works-on%20my%20machine-brightgreen)](https://github.com/limited-dev)
 
 # Installing nodejs
 
