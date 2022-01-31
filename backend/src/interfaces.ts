@@ -1,6 +1,6 @@
 export type drinkType = {
     drinkname: string,
-    class: string,
+    type: string,
     level: number,
     percentage: number,
 }

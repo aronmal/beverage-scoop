@@ -118,6 +118,9 @@ body {
     font-family: 'Roboto';
     background: var(--bg-color);
 }
+#body-div {
+    height: 100vh;
+}
 .flex {
     display: flex;
 }
@@ -169,8 +172,6 @@ p {
     justify-content: space-between;
 }
 #header-right {
-    --transform-wave-trans-max : -85;
-    --transform-wave-trans-min : -20;
     align-items: center;
 }
 #time {
@@ -245,10 +246,6 @@ p {
     padding-top: 1em;
 }
 #content-div {
-    --transform-wave-trans-max : -85;
-    --transform-wave-trans-min : -20;
-    --transform-brand-name-max : 125;
-    --transform-brand-name-min : -50;
     /* padding: 0 2vw; */
     align-items: center;
     justify-content: space-around;

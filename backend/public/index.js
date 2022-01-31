@@ -52,7 +52,7 @@ async function createDivElements() {
         headerRight.insertBefore(headerTemplateClone,headerRight.childNodes[headerRight.childNodes.length-3])
         const headerItems = document.getElementsByClassName('drink-level')
         const headerItem = headerItems[headerItems.length-1]
-        headerItem.classList.add(drink.class)
+        headerItem.classList.add(drink.type)
         headerItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         headerItem.getElementsByClassName('level-percent')[0].innerText = drink.level + '%'
         var transformWaveMax
@@ -70,7 +70,7 @@ async function createDivElements() {
         content.insertBefore(contentTemplateClone,content.childNodes[content.childNodes.length-3])
         const contentItems = document.getElementsByClassName('content-drink')
         const contentItem = contentItems[contentItems.length-1]
-        contentItem.classList.add(drink.class)
+        contentItem.classList.add(drink.type)
         contentItem.getElementsByClassName('drink-name')[0].innerText = drink.drinkname
         contentItem.getElementsByClassName('percentage')[0].innerText = drink.percentage + '%'
         transformWaveMax = Number(getComputedStyle(content).getPropertyValue('--transform-wave-trans-max'))
@@ -114,7 +114,7 @@ async function buttonClicked(theButton) {
 
     await fetchLoad()
     for (var i = 0; i < configData.drinks.length; ++i) {
-        if (drink == configData.drinks[i].class) {
+        if (drink == configData.drinks[i].type) {
             if (state == 'percent-up'){
                 e = i
                 diff = 5
