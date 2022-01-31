@@ -10,7 +10,7 @@ let newConfigFileData = {} as configType
 
 // Start listening on port 5000
 app.listen(5000, () => console.log('Server running on: http://localhost:5000'))
-app.use(express.static('public'))
+app.use(express.static('../frontend/build'))
 app.use(express.json())
 app.use(cors());
 
