@@ -1,0 +1,16 @@
+{
+  "name": "arduinocommunicator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node main.js debug",
+    "start": "node main.js"
+  },
+  "keywords": [],
+  "author": "limited_dev",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^10.1.0"
+  }
+}
