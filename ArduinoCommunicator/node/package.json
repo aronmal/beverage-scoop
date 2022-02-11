@@ -4,13 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node main.js debug",
-    "start": "node main.js"
+    "build": "tsc",
+    "start": "node ./build/index.js",
+    "test": "nodemon --watch ./src/ --exec ts-node ./src/index.ts"
   },
   "keywords": [],
-  "author": "limited_dev",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "serialport": "^10.1.0"
+  },
+  "devDependencies": {
+    "@types/serialport": "^8.0.2",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
   }
 }

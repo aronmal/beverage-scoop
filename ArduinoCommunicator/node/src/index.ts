@@ -1,18 +1,18 @@
-const serialport = require('serialport')
-// FIXME THIS LANGUAGE IS THE FUCKING SPAWN OF SATAN HIMSELF
-const Readline = serialport.parsers.Readline; // make instance of Readline parser
-const parser = new Readline(); // make a new parser to read ASCII lines
+import SerialPort from 'serialport';
+
+const Readline = SerialPort.parsers.Readline; // make instance of Readline parser
+const parser = new Readline({ delimiter: '\r\n' }); // make a new parser to read ASCII lines
 
 const userInput = "A"
 
 const main = async () => {
 
     // list serial ports:
-    const ports = await serialport.list().then(ports => ports.filter(port => port.manufacturer));
+    const ports = await SerialPort.list().then(ports => ports.filter(port => port.manufacturer));
 
     if (ports.length !== 1)
         return;
-    const port = new serialport(ports[0].path ,{
+    const port = new SerialPort(ports[0].path, {
         baudRate: 9600,
     });
 
