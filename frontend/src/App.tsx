@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import buttonClicked from "./helpers/buttonClicked";
 import clock from "./helpers/clock";
 import randomNum from "./helpers/randomNum";
-import { drinkType, configType, bubblesType } from "./interfaces";
+import { configType, bubblesType } from "./interfaces";
 
 function App() {
 
@@ -98,29 +98,34 @@ function App() {
                     const thisBubbles = bubbles[match].bubbles || []
                     return (
                     <div key={ drinkUuid } className={`flex-row content-drink ${type}`} style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
-                        <div className="drink-div flex-col">
-                            <p className="brand-name drink-name">{ drinkname }</p>
-                            <div className="wave-trans">
-                                <div className="wave-rot">
-                                    <div className="wave-color"></div>
+                        <div className="flex-col">
+                            <div className="drink-div flex-col">
+                                <div className="value grid-3-col">
+                                    <button className="percent-up" onClick={e => buttonClicked(e, 'up', i)}><span>&lt;</span></button>
+                                    <p className="percentage">{ percentage + '%' }</p>
+                                    <button className="percent-down" onClick={e => buttonClicked(e, 'down', i)}><span>&gt;</span></button>
                                 </div>
-                            </div>
-                            {thisBubbles.map(({ bubbleUuid, size, left, animation1, animationFillMode, animation2 }) => {
-                                return (
-                                    <div key={ bubbleUuid } className='bubble-div' style={{'height': size, 'width': size, 'left': left, 'animation': animation1, 'animationFillMode': animationFillMode}}>
-                                        <div className='bubble' style={{'height': size, 'width': size, 'animation': animation2,}}>
-                                        </div>
+                                <div className="wave-trans">
+                                    <div className="wave-rot">
+                                        <div className="wave-color"></div>
                                     </div>
-                                )
-                            })}
-                        </div>
-                        <div className="value grid-3-col">
-                            <button className="percent-up" onClick={e => buttonClicked(e, 'up', i)}><span>&lt;</span></button>
-                            <p className="percentage">{ percentage + '%' }</p>
-                            <button className="percent-down" onClick={e => buttonClicked(e, 'down', i)}><span>&gt;</span></button>
+                                </div>
+                                {thisBubbles.map(({ bubbleUuid, size, left, animation1, animationFillMode, animation2 }) => {
+                                    return (
+                                        <div key={ bubbleUuid } className='bubble-div' style={{'height': size, 'width': size, 'left': left, 'animation': animation1, 'animationFillMode': animationFillMode}}>
+                                            <div className='bubble' style={{'height': size, 'width': size, 'animation': animation2,}}>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <p className="brand-name drink-name">{ drinkname }</p>
                         </div>
                     </div>
                 )})}
+                <div className="new2 flex-row">
+                    <p className="new1">drink</p>
+                </div>
                 </div>
             </div>
         </div>

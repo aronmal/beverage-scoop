@@ -1,4 +1,4 @@
-export type drinkType = {
+type drinkType = {
     drinkUuid: string,
     drinkname: string,
     type: string,

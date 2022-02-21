@@ -153,7 +153,7 @@ p {
     font-family: 'Schoolbell', cursive;
     margin: 0 3rem 0 1rem;
 }
-.drink-div p {
+.drink-div p, .content-drink p {
     padding: 0 .25em;
     border-radius: .125em;
     /* font-family: 'Merienda One', cursive; */
@@ -235,7 +235,7 @@ p {
     position: relative;
     height: 100%;
     justify-content: space-around;
-    margin-bottom: 4em;
+    margin-top: 2em;
 }
 #message {
     position: absolute;
@@ -296,6 +296,7 @@ p {
     opacity: .5;
 }
 .value {
+    z-index: 1;
     height: 3.6em;
     border: .05em solid black;
 }
@@ -328,6 +329,16 @@ p {
     background: var(--button-bg-hover);
 }
 
+.new2 {
+    height: 70%;
+}
+.new1 {
+    border-radius: 20% 20% 40% 40% / 10% 10% 75% 75%;
+    margin: 0 !important;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+}
 
 /* ========== ========== ========== */
 
@@ -410,21 +421,7 @@ p {
 .brand-name {
     font-size: .7em;
     text-align: center;
-    animation: brand-name-wave-trans 2s infinite;
-    z-index: 1;
-}
-@keyframes brand-name-wave-trans {
-    0% {
-        animation-timing-function: ease-in;
-        transform: translateY(var(--transform-brand-name));
-    }
-    50% {
-        animation-timing-function: ease-out;
-        transform: translateY(calc(var(--transform-brand-name) + 5%));
-    }
-    100% {
-        transform: translateY(var(--transform-brand-name));
-    }
+    margin: .5em;
 }
 @keyframes error-message {
     0% {
