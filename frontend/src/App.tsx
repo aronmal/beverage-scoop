@@ -101,9 +101,9 @@ function App() {
                         <div className="flex-col">
                             <div className="drink-div flex-col">
                                 <div className="value grid-3-col">
-                                    <button className="percent-up" onClick={e => buttonClicked(e, 'up', i)}><span>&lt;</span></button>
+                                    <button className="percent-up" onClick={() => buttonClicked(setConfig, 'up', i)}><span>&lt;</span></button>
                                     <p className="percentage">{ percentage + '%' }</p>
-                                    <button className="percent-down" onClick={e => buttonClicked(e, 'down', i)}><span>&gt;</span></button>
+                                    <button className="percent-down" onClick={() => buttonClicked(setConfig, 'down', i)}><span>&gt;</span></button>
                                 </div>
                                 <div className="wave-trans">
                                     <div className="wave-rot">

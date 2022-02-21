@@ -1,8 +1,19 @@
 // import errorMessage from "./errorMessage"
+
+import { configType } from "../interfaces";
+
 // import fetchLoad from "./fetchLoad"
 type directionType = 'up' | 'down'
 
-export default async function buttonClicked(theButton: React.MouseEvent<HTMLButtonElement, MouseEvent>, direction: directionType, i: number) {
+export default async function buttonClicked(setConfig: React.Dispatch<React.SetStateAction<configType>>, direction: directionType, i: number) {
+    setConfig(e => {
+        if (direction === 'up')
+            return { ...e, drinks: Object.assign([...e.drinks], { [i]: {...e.drinks[i], percentage: e.drinks[i].percentage + 5 }})}
+        if (direction === 'down')
+            return { ...e, drinks: Object.assign([...e.drinks], { [i]: {...e.drinks[i], percentage: e.drinks[i].percentage - 5 }})}
+        return e;
+    })
+
 //     const buttonParentClasses = theButton.parentNode.parentNode.className.split(/\s+/)
 //     const drink = buttonParentClasses[buttonParentClasses.length - 1]
 //     const buttonState = theButton.className.split(/\s+/)
