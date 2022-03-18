@@ -1,6 +1,6 @@
 type drinkType = {
     drinkUuid: string,
-    drinkname: string,
+    drinkname: 'Fanta' | 'Cola' | 'Sprite' | 'Wasser' | 'Special' | 'Beer',
     type: string,
     level: number,
     percentage: number,
@@ -18,6 +18,7 @@ export type bubbleType = {
     animation1: string,
     animationFillMode: string,
     animation2: string,
+    age: number
 }
 
 export type bubblesType = {

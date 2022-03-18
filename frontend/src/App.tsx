@@ -1,3 +1,6 @@
+import { faSquareCaretDown } from "@fortawesome/free-regular-svg-icons";
+import { faCaretDown, faCaretUp, faDroplet, faGear, faPlay, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSProperties, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import buttonClicked from "./helpers/buttonClicked";
@@ -7,29 +10,38 @@ import { configType, bubblesType } from "./interfaces";
 
 function App() {
 
+    const colors = {
+        Fanta: [31,98,54],
+        Cola: [1,100,28],
+        Sprite: [214,41,78],
+        Wasser: [210,80,50],
+        Special: [250,73,57],
+        Beer: [27,75,55],
+    }
+
+    const bubbleConcurrency = 6
     const configHard: configType = JSON.parse('{"drinks":[{"drinkUuid":"dd8a23ba-a9fe-4839-a0a0-9e82c4ec602c","drinkname":"Fanta","type":"fanta","level":44,"percentage":20},{"drinkUuid":"2c788945-a7b1-4482-a17d-6474719ecefc","drinkname":"Cola","type":"cola","level":63,"percentage":40},{"drinkUuid":"ad78401d-ba83-480a-9d94-a577aaa67ac7","drinkname":"Sprite","type":"sprite","level":77,"percentage":20},{"drinkUuid":"d923376b-7563-4995-b9ec-6bf552adb923","drinkname":"Wasser","type":"water","level":26,"percentage":15}],"templates":[{}]}');
 
     const [time, setTime] = useState('00:00');
     const [config, setConfig] = useState<configType>(configHard);
     // const [config, setConfig] = useState<configType>({drinks: [], templates: [] });
-    const [bubbles, setBubbles] = useState<bubblesType[]>(configHard.drinks.map(({ drinkUuid }) => ({ drinkUuid, bubbles: [] })));
+    const [bubbles, setBubbles] = useState<bubblesType[]>([...configHard.drinks.map(({ drinkUuid }) => ({ drinkUuid, bubbles: [] })), { drinkUuid: 'drink', bubbles: [] }]);
     const [elem, setElem] = useState(<></>);
 
     useEffect(() => {
-        // setConfig(configHard)
+        setBubbles([...config.drinks.map(({ drinkUuid }) => ({ drinkUuid, bubbles: [] })), { drinkUuid: 'drink', bubbles: [] }])
         bubblesSetup()
         setInterval(() => {
             setTime(() => clock())
         }, 1000);
     }, []);
 
-    // console.log(configHard.drinks.map(({ drinkUuid }) => ({ drinkUuid, bubbles: [] })))
     function bubblesSetup() {
-        // setBubbles(config.drinks.map(({ drinkUuid }) => ({ drinkUuid, bubbles: [] })))
-        {config.drinks.map(({ drinkUuid }, i) => {
-            const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
-            setInterval(() => {
+        setInterval(() => {
+            config.drinks.forEach(({ drinkUuid }) => {
+                const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
                 const offsetTimout = Math.round(randomNum(0,2000))
+                const bubbleLife = Math.round(randomNum(2000,5000))
                 setTimeout(() => {
                     const bubbleUuid = uuidv4()
                     const size = `${Math.round((randomNum(0.5,1.5)) * 100) / 100}rem`
@@ -37,95 +49,117 @@ function App() {
                     const animation1 = 'bubblesY 5s linear'
                     const animationFillMode = 'forwards'
                     const animation2 = 'bubblesX .4s ease-in-out alternate infinite'
-                    setBubbles(e => Object.assign([...e], {
-                        [match]: {
-                            ...e[match],
-                            bubbles: [...e[match].bubbles, { bubbleUuid, size, left, animation1, animationFillMode, animation2 }]
-                        }
-                    }))
-                    setTimeout(() => {
-                        setBubbles(e => Object.assign([...e], {
+                    const age = Date.now() + bubbleLife
+                    setBubbles(e => {
+                        const vBubbles = e[match].bubbles
+                        if (vBubbles.length >= bubbleConcurrency) {
+                            return Object.assign([...e], {
                             [match]: {
                                 ...e[match],
-                                bubbles: [...e[match].bubbles.filter(e => e.bubbleUuid !== bubbleUuid)]
-                            }
-                        }))
-                    }, 5000)
+                                bubbles: vBubbles.filter(e => e.age >= Date.now())
+                            }})
+                        }
+                        return Object.assign([...e], {
+                        [match]: {
+                            ...e[match],
+                            bubbles: [...vBubbles, { bubbleUuid, size, left, animation1, animationFillMode, animation2, age }]
+                        }
+                    })})
                 }, offsetTimout)
-            }, 1000);
-        })}
+            });
+        }, 1000);
     }
-
-    useEffect(() => {
-        setBubbles(config.drinks.map(({ drinkUuid }) => ({ drinkUuid, bubbles: [] })))
-    }, [config]);
 
     return (
         <div id="body-div" className="flex-col">
             <div id="header-bar" className="flex-row">
                 <p id="time">{ time }</p>
                 <div id="header-right" className="flex-row">
-                {config.drinks.map(({ drinkUuid, drinkname, type, level }) => {
-                    const transformWaveMax = -85
-                    const transformWaveMin = -20
-                    const transformWave = Math.round((level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
-                    return (
-                        <div key={ drinkUuid } className={`flex-row drink-level ${type}`} style={{'--transform-wave-trans': `${transformWave}%`} as CSSProperties}>
-                            <div className="drink-div flex-col">
-                                <p className="level-percent">{ level + '%' }</p>
-                                <div className="wave-trans">
-                                    <div className="wave-rot">
-                                        <div className="wave-color"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p className="drink-name">{ drinkname }</p>
-                        </div>
-                )})}
+                    <FontAwesomeIcon icon={faPlay} rotation={270} />
+                    <FontAwesomeIcon icon={faPlay} color='#fffa' rotation={90} />
+                    <FontAwesomeIcon icon={faCaretUp} />
+                    <FontAwesomeIcon icon={faCaretDown} />
+                    <FontAwesomeIcon icon={faSquareCaretUp} color='orange' spin border/>
+                    <FontAwesomeIcon icon={faSquareCaretDown} className="fa-beat" />
+                    <FontAwesomeIcon icon={faGear} />
                 </div>
             </div>
             <div id="content" className="flex-col">
                 { elem }
                 <div id="content-div" className="flex-row">
-                {config.drinks.map(({ drinkUuid, drinkname, type, percentage }, i) => {
-                    const transformWaveMax = -85
-                    const transformWaveMin = -20
-                    const transformWave = Math.round((percentage/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
-                    const transformBrandMax = 125
-                    const transformBrandMin = -50
-                    const transformBrand = Math.round(((1-percentage/100) * (transformBrandMax - transformBrandMin) + transformBrandMin))
-                    const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
-                    const thisBubbles = bubbles[match].bubbles || []
-                    return (
-                    <div key={ drinkUuid } className={`flex-row content-drink ${type}`} style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
-                        <div className="flex-col">
-                            <div className="drink-div flex-col">
-                                <div className="value grid-3-col">
-                                    <button className="percent-up" onClick={() => buttonClicked(setConfig, 'up', i)}><span>&lt;</span></button>
+                    {config.drinks.map(({ drinkUuid, drinkname, type, percentage, level }, i) => {
+                        const transformWaveMax = -85
+                        const transformWaveMin = -20
+                        const transformWave = Math.round((level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
+                        const transformBrandMax = 125
+                        const transformBrandMin = -50
+                        const transformBrand = Math.round(((1-level/100) * (transformBrandMax - transformBrandMin) + transformBrandMin))
+                        const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
+                        const thisBubbles = bubbles[match].bubbles || []
+                        return (
+                        <div key={ drinkUuid } className={`flex-row content-drink ${type}`}>
+                            <div className="flex-col">
+                                <div className="drink-div value flex-col">
+                                    <button className="percent-up" onClick={() => buttonClicked(setConfig, 'up', i)}>
+                                        <FontAwesomeIcon icon={faPlay} color='black' rotation={270} />
+                                    </button>
                                     <p className="percentage">{ percentage + '%' }</p>
-                                    <button className="percent-down" onClick={() => buttonClicked(setConfig, 'down', i)}><span>&gt;</span></button>
-                                </div>
-                                <div className="wave-trans">
-                                    <div className="wave-rot">
-                                        <div className="wave-color"></div>
-                                    </div>
-                                </div>
-                                {thisBubbles.map(({ bubbleUuid, size, left, animation1, animationFillMode, animation2 }) => {
-                                    return (
-                                        <div key={ bubbleUuid } className='bubble-div' style={{'height': size, 'width': size, 'left': left, 'animation': animation1, 'animationFillMode': animationFillMode}}>
-                                            <div className='bubble' style={{'height': size, 'width': size, 'animation': animation2,}}>
-                                            </div>
+                                    <button className="percent-down" onClick={() => buttonClicked(setConfig, 'down', i)}>
+                                        <FontAwesomeIcon icon={faPlay} color='black' rotation={90} />
+                                    </button>
+                                    <div className="wave-trans" style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
+                                        <div className="wave-rot">
+                                            <div className="wave-color"></div>
                                         </div>
-                                    )
-                                })}
+                                    </div>
+                                    {thisBubbles.map(({ bubbleUuid, size, left, animation1, animationFillMode, animation2 }) => {
+                                        return (
+                                            <div key={ bubbleUuid } className='bubble-div' style={{'--bubble-size': size, 'left': left, 'animation': animation2} as CSSProperties}>
+                                                <div className='bubble' style={{'animation': animation1}}>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <p className="brand-name drink-name">{ drinkname }</p>
                             </div>
-                            <p className="brand-name drink-name">{ drinkname }</p>
                         </div>
-                    </div>
-                )})}
-                <div className="new2 flex-row">
-                    <p className="new1">drink</p>
-                </div>
+                    )})}
+                    {['one'].map(() => {
+                        const level = config.drinks.reduce((level, {percentage}) => level + percentage, 0)
+                        const percent = config.drinks.map(({percentage}) => percentage).reduce((partialSum, a) => partialSum + a, 0)
+                        const theColor = config.drinks.reduce((color, {drinkname, percentage}) => colors[drinkname].map((drinkColor, i) => Math.floor(drinkColor * (percentage/percent)) + color[i]), [0,0,0])
+                        const transformWaveMax = -85
+                        const transformWaveMin = -20
+                        const transformWave = Math.round((level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
+                        const transformBrandMax = 125
+                        const transformBrandMin = -50
+                        const transformBrand = Math.round(((1-level/100) * (transformBrandMax - transformBrandMin) + transformBrandMin))
+                        const match = bubbles.findIndex(e => e.drinkUuid === 'drink')
+                        const thisBubbles = bubbles[match].bubbles || []
+                        return (
+                            <div key={ 'drink' } style={{'--bg': `hsl(${theColor[0]},${theColor[1]}%,${theColor[2]}%)`} as CSSProperties}>
+                                <p style={{position: 'absolute', top: '0'}}>{ level + '%'}</p>
+                                <div className="new2 flex-row drink-div">
+                                    <div className="wave-trans animate" style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
+                                        <div className="wave-rot animate">
+                                            <div className="wave-color"></div>
+                                        </div>
+                                    </div>
+                                    {thisBubbles.map(({ bubbleUuid, size, left, animation1, animationFillMode, animation2 }) => {
+                                        return (
+                                            <div key={ bubbleUuid } className='bubble-div' style={{'height': size, 'width': size, 'left': left, 'animation': animation1, 'animationFillMode': animationFillMode}}>
+                                                <div className='bubble' style={{'height': size, 'width': size, 'animation': animation2,}}>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <button className="brand-name drink-name">
+                                    <FontAwesomeIcon icon={faDroplet} />
+                                </button>
+                            </div>
+                    )})}
                 </div>
             </div>
         </div>

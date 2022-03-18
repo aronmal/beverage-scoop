@@ -4,106 +4,68 @@
     --button-bg: rgba(255,255,255,.25);
     --button-bg-hover: rgba(255,255,255,.5);
     --wave-bg: rgb(127,159,191);
-    
+}
 
-    --fanta-bg: #fd8e18;
-    --fanta-brand-bg: #fd8e18;
-    --fanta-brand-color: #1f4ead;
-
-    --cola-bg: #8e0300;
-    --cola-brand-bg: red;
-
-    --sprite-bg: lightsteelblue;
-    --sprite-brand-bg: #519d4f;
-
-    --water-bg: #197fe6;
-    --water-brand-bg: #33a6cc;
-
-    --special-bg: #5c41e1;
-    --special-brand-bg: #cc33cc;
-
-    --beer-bg: #e28538;
-    --beer-brand-bg: #4a2328;
+.drink-div::before {
+    background-color: var(--bg);
 }
 
 /* color themes */
 
-.fanta .drink-div::before {
-    background-color: var(--fanta-bg);
+.brand-name {
+    color: var(--brand-color);
+    background: var(--brand-bg);
+    box-shadow: 0 0 0 4px var(--second-bg);
 }
-.fanta .brand-name {
-    color: var(--fanta-brand-color);
-    background: var(--fanta-brand-bg);
-    box-shadow: 0 0 0 4px white;
+.wave-color {
+    background: var(--bg);
 }
-.fanta .wave-color {
-    background: var(--fanta-bg);
-}
-
-.cola .drink-div::before {
-    background-color: var(--cola-bg);
-}
-.cola .brand-name {
-    color: black;
-    background: var(--cola-brand-bg);
-    box-shadow: 0 0 0 4px black;
-}
-.cola .wave-color {
-    background: var(--cola-bg);
+.fanta {
+    --bg: #fd8e18;
+    --brand-bg: #fd8e18;
+    --brand-color: #1f4ead;
+    --second-bg: white;
 }
 
-.sprite .drink-div::before {
-    background-color: var(--sprite-bg);
-}
-.sprite .brand-name {
-    color: white;
-    background: var(--sprite-brand-bg);
-    box-shadow: 0 0 0 4px white;
-}
-.sprite .wave-color {
-    background: var(--sprite-bg);
+.cola {
+    --bg: #8e0300;
+    --brand-bg: red;
+    --brand-color: black;
+    --second-bg: black;
 }
 
-.water .drink-div::before {
-    background-color: var(--water-bg);
-}
-.water .brand-name {
-    color: white;
-    background: var(--water-brand-bg);
-    box-shadow: 0 0 0 4px white;
-}
-.water .wave-color {
-    background: var(--water-bg);
+.sprite {
+    --bg: #b0c4de;
+    --brand-bg: #519d4f;
+    --brand-color: white;
+    --second-bg: white;
 }
 
-.special .drink-div::before {
-    background-color: var(--special-bg);
-}
-.special .brand-name {
-    color: white;
-    background: var(--special-brand-bg);
-    box-shadow: 0 0 0 4px white;
-}
-.special .wave-color {
-    background: var(--special-bg);
+.water {
+    --bg: #197fe6;
+    --brand-bg: #33a6cc;
+    --brand-color: white;
+    --second-bg: white;
 }
 
-.beer .drink-div::before {
-    background-color: var(--beer-bg);
+.special {
+    --bg: #5c41e1;
+    --brand-bg: #cc33cc;
+    --brand-color: white;
+    --second-bg: white;
 }
-.beer .brand-name {
-    color: white;
-    background: var(--beer-brand-bg);
-    box-shadow: 0 0 0 4px white;
+
+.beer {
+    --bg: #e28538;
+    --brand-bg: #4a2328;
+    --brand-color: white;
+    --second-bg: white;
 }
 .beer .wave-trans {
     margin-bottom: 1em;
 }
 .beer .wave-rot {
     box-shadow: 0 0 0 .5em #edb248a0;
-}
-.beer .wave-color {
-    background: #f7eeba;
 }
 
 /* general rules */
@@ -132,16 +94,6 @@ body {
     display: flex;
     flex-direction: row;
 }
-.grid-3-col {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-}
-.grid-3-col > * {
-    width: 8rem;
-    text-align: center;
-}
 
 /* typography */
 
@@ -153,7 +105,7 @@ p {
     font-family: 'Schoolbell', cursive;
     margin: 0 3rem 0 1rem;
 }
-.drink-div p, .content-drink p {
+.brand-name {
     padding: 0 .25em;
     border-radius: .125em;
     /* font-family: 'Merienda One', cursive; */
@@ -173,6 +125,12 @@ p {
 }
 #header-right {
     align-items: center;
+    font-size: 3em;
+    height: 100%;
+    background-color: #0003;
+}
+#header-right * {
+    margin-right: .5em;
 }
 #time {
     font-size: 5em;
@@ -181,11 +139,6 @@ p {
 .drink-level .drink-div {
     opacity: .75;
     /* border: .25em solid royalblue; */
-}
-.drink-level .drink-div > p{
-    text-shadow: 0 0 8px white;
-    font-size: 1.25em;
-    z-index: 1;
 }
 .drink-level .wave-trans {
     animation: none;
@@ -206,7 +159,7 @@ p {
     content: '';
     position: absolute;
     width: 3em;
-    height: 5em;
+    height: 6em;
     z-index: -1;
 }
 .drink-div {
@@ -214,21 +167,12 @@ p {
     align-items: center;
     justify-content: center;
     width: 3em;
-    height: 5em;
+    height: 6em;
     overflow: hidden;
     border: .05em solid black;
 }
-.content-drink:nth-child(1) .wave-trans, .content-drink:nth-child(1) .wave-rot {
+.wave-trans, .wave-rot {
     animation-delay: 0s, 10s;
-}
-.content-drink:nth-child(2) .wave-trans, .content-drink:nth-child(2) .wave-rot {
-    animation-delay: 1s, 11s;
-}
-.content-drink:nth-child(3) .wave-trans, .content-drink:nth-child(3) .wave-rot {
-    animation-delay: 2s, 12s;
-}
-.content-drink:nth-child(4) .wave-trans, .content-drink:nth-child(4) .wave-rot {
-    animation-delay: 3s, 13s;
 }
 
 #content {
@@ -263,19 +207,30 @@ p {
 .bubble-div {
     position: absolute;
     border-radius: 50%;
-    z-index: -1;
+    /* z-index: -1; */
+    height: var(--bubble-size);
+    width: var(--bubble-size);
 }
 .bubble {
     position: absolute;
     border-radius: 50%;
     background: #fff4;
+    height: var(--bubble-size);
+    width: var(--bubble-size);
+    opacity: 0;
 }
 @keyframes bubblesY {
-    From {
+    0% {
         transform: translateY(1000%);
+        opacity: 0;
     }
-    To {
+    25% {
+        transform: translateY(500%);
+        opacity: 1;
+    }
+    100% {
         transform: translateY(-1000%);
+        opacity: 1;
     }
 }
 @keyframes bubblesX {
@@ -296,32 +251,38 @@ p {
     opacity: .5;
 }
 .value {
-    z-index: 1;
-    height: 3.6em;
     border: .05em solid black;
+}
+.value button, .value p {
+    text-shadow: 0 0 8px white;
+    font-size: 1em;
+    z-index: 1;
+}
+.value svg {
+    opacity: .5;
+    font-size: 1.25em;
+}
+.percent-down {
+    backface-visibility: .5;
+    /* background-color: #fff6 !important; */
+}
+.percent-up {
+    /* background-color: #fff6 !important; */
 }
 .value button {
     transition: .2s;
     -webkit-transition: .2s;
     font-size: 1em;
-    width: 100%;
-    height: 100%;
+    width: 2em;
+    height: 2em;
     cursor: pointer;
     border: none;
-    background: none;
-    writing-mode: vertical-lr;
+    background-color: #fff4;
+    border-radius: .25em;
+    border: .05em solid #fff6;
 }
-.value {
-    background: var(--button-bg);
-}
-.value button span {
-    writing-mode: vertical-lr;
-}
-.value p {
-    font-size: .7em;
-    padding: .125em .25em;
-    border-top: .05em solid black;
-    border-bottom: .05em solid black;
+.value > button, .value > p {
+    z-index: 1;
 }
 .value button:hover {
     transition: .2s;
@@ -330,14 +291,14 @@ p {
 }
 
 .new2 {
-    height: 70%;
-}
-.new1 {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 3em;
+    height: 6em;
+    overflow: hidden;
+    border: .05em solid black;
     border-radius: 20% 20% 40% 40% / 10% 10% 75% 75%;
-    margin: 0 !important;
-    height: 100%;
-    width: 100%;
-    background-color: red;
 }
 
 /* ========== ========== ========== */
@@ -346,8 +307,12 @@ p {
 
 .wave-trans {
     position: absolute;
-    width: 8em;
+    width: 100%;
     height: 8em;
+    transform: translateY(var(--transform-wave-trans));
+}
+.wave-trans.animate {
+    width: 8em;
     animation: wave-start-trans 10s, wave-trans 10s ease-in-out infinite;
 }
 @keyframes wave-start-trans {
@@ -376,11 +341,15 @@ p {
 }
 .wave-rot {
     position: absolute;
+    width: 100%;
+    height: 8em;
+    box-shadow: 0 0 0 .125em #fff5;
+}
+.wave-rot.animate {
     width: 8em;
     height: 8em;
     border-radius: 35%;
     animation: wave-start-rot 10s, wave-rot 10s linear infinite;
-    box-shadow: 0 0 0 .125em #fff5;
 }
 @keyframes wave-start-rot {
     0% {
