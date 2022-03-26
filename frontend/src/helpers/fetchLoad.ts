@@ -1,4 +1,4 @@
-import displayErrorMessage from "./displayErrorMessage"
+import displayErrorMessage from "../components/displayErrorMessage"
 import errorMessage from "./errorMessage"
 
 export default async function fetchLoad(setElem: React.Dispatch<React.SetStateAction<JSX.Element>>) {
