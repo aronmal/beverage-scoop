@@ -19,7 +19,6 @@ function App() {
         Beer: [27,75,55],
     }
 
-    const bubbleConcurrency = 6
     const configHard: configType = JSON.parse('{"drinks":[{"drinkUuid":"dd8a23ba-a9fe-4839-a0a0-9e82c4ec602c","drinkname":"Fanta","type":"fanta","level":44,"percentage":20},{"drinkUuid":"2c788945-a7b1-4482-a17d-6474719ecefc","drinkname":"Cola","type":"cola","level":63,"percentage":40},{"drinkUuid":"ad78401d-ba83-480a-9d94-a577aaa67ac7","drinkname":"Sprite","type":"sprite","level":77,"percentage":20},{"drinkUuid":"d923376b-7563-4995-b9ec-6bf552adb923","drinkname":"Wasser","type":"water","level":26,"percentage":15}],"templates":[{}]}');
 
     const [time, setTime] = useState('00:00');
@@ -37,37 +36,24 @@ function App() {
     }, []);
 
     function bubblesSetup() {
-        setInterval(() => {
-            config.drinks.forEach(({ drinkUuid }) => {
-                const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
-                const offsetTimout = Math.round(randomNum(0,2000))
-                const bubbleLife = Math.round(randomNum(2000,5000))
-                setTimeout(() => {
+        const bubbleConcurrency = 5
+        setBubbles(() => {
+            const result = [...config.drinks, { drinkUuid: 'drink' }].map(({ drinkUuid }) => {
+                const thisBubbles: bubbleType[] = [];
+                for (let i = 0; i < bubbleConcurrency; i++) {
                     const bubbleUuid = uuidv4()
+                    const offsetTimout = Math.round(randomNum(0,75)) / 10
                     const size = `${Math.round((randomNum(0.5,1.5)) * 100) / 100}rem`
                     const left = `${Math.round(randomNum(10,90))}%`
-                    const animation1 = 'bubblesY 5s linear'
-                    const animationFillMode = 'forwards'
-                    const animation2 = 'bubblesX .4s ease-in-out alternate infinite'
-                    const age = Date.now() + bubbleLife
-                    setBubbles(e => {
-                        const vBubbles = e[match].bubbles
-                        if (vBubbles.length >= bubbleConcurrency) {
-                            return Object.assign([...e], {
-                            [match]: {
-                                ...e[match],
-                                bubbles: vBubbles.filter(e => e.age >= Date.now())
-                            }})
-                        }
-                        return Object.assign([...e], {
-                        [match]: {
-                            ...e[match],
-                            bubbles: [...vBubbles, { bubbleUuid, size, left, animation1, animationFillMode, animation2, age }]
-                        }
-                    })})
-                }, offsetTimout)
+                    const animation1 = `bubblesY 7.5s linear ${offsetTimout}s infinite`
+                    const animation2 = `bubblesX .4s ease-in-out ${offsetTimout}s alternate infinite`
+                    thisBubbles.push({ bubbleUuid, size, left, animation1, animation2 })
+                }
+                return { drinkUuid, bubbles: thisBubbles };
             });
-        }, 1000);
+            console.log(result)
+            return result;
+        });
     }
 
     return (
