@@ -1,5 +1,4 @@
-import { faSquareCaretDown } from "@fortawesome/free-regular-svg-icons";
-import { faCaretDown, faCaretUp, faDroplet, faGear, faPlay, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSProperties, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -61,13 +60,7 @@ function App() {
             <div id="header-bar" className="flex-row">
                 <p id="time">{ time }</p>
                 <div id="header-right" className="flex-row">
-                    <FontAwesomeIcon icon={faPlay} rotation={270} />
-                    <FontAwesomeIcon icon={faPlay} color='#fffa' rotation={90} />
-                    <FontAwesomeIcon icon={faCaretUp} />
-                    <FontAwesomeIcon icon={faCaretDown} />
-                    <FontAwesomeIcon icon={faSquareCaretUp} color='orange' spin border/>
-                    <FontAwesomeIcon icon={faSquareCaretDown} className="fa-beat" />
-                    <FontAwesomeIcon icon={faGear} />
+                    <FontAwesomeIcon icon={faGear} spin />
                 </div>
             </div>
             <div id="content" className="flex-col">
