@@ -130,7 +130,7 @@ p {
     background-color: #0003;
 }
 #header-right * {
-    margin-right: .5em;
+    margin: 0 1em;
 }
 #time {
     font-size: 5em;
@@ -204,10 +204,13 @@ p {
 #content-div .drink-div {
     border: .05em solid black;
 }
+.new2 .bubble-div {
+    z-index: -1;
+}
 .bubble-div {
     position: absolute;
     border-radius: 50%;
-    /* z-index: -1; */
+    opacity: 0;
     height: var(--bubble-size);
     width: var(--bubble-size);
 }
@@ -217,20 +220,23 @@ p {
     background: #fff4;
     height: var(--bubble-size);
     width: var(--bubble-size);
-    opacity: 0;
 }
 @keyframes bubblesY {
     0% {
-        transform: translateY(1000%);
+        transform: translateY(2000%);
         opacity: 0;
     }
-    25% {
-        transform: translateY(500%);
+    20% {
+        transform: translateY(1000%);
+        opacity: 1;
+    }
+    80% {
+        transform: translateY(-1000%);
         opacity: 1;
     }
     100% {
-        transform: translateY(-1000%);
-        opacity: 1;
+        transform: translateY(-2000%);
+        opacity: 0;
     }
 }
 @keyframes bubblesX {
