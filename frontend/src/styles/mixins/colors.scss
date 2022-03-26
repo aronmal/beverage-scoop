@@ -1,0 +1,10 @@
+@mixin theme-colors($color1, $color2, $color3, $color4) {
+    .brand-name {
+        background: $color1;
+        color: $color2;
+        box-shadow: 0 0 0 4px $color3;
+    }
+    .wave-color, .drink-div {
+        background-color: $color4;
+    }
+}

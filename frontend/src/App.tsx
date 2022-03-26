@@ -1,4 +1,4 @@
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faCircleHalfStroke, faGear, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import DrinkDiv from "./components/DrinkDiv";
@@ -25,16 +25,19 @@ function App() {
     }, []);
 
     return (
-        <div id="body-div" className="flex-col">
-            <div id="header-bar" className="flex-row">
+        <div id="body-div">
+            <div id="header-bar">
                 <p id="time">{ time }</p>
-                <div id="header-right" className="flex-row">
+                <div id="header-right">
+                    <FontAwesomeIcon icon={faCircleHalfStroke} border />
+                    <FontAwesomeIcon icon={faSun} border />
+                    <FontAwesomeIcon icon={faMoon} border />
                     <FontAwesomeIcon icon={faGear} spin />
                 </div>
             </div>
-            <div id="content" className="flex-col">
+            <div id="content">
                 { elem }
-                <div id="content-div" className="flex-row">
+                <div id="content-div">
                     {config.drinks.map((drink, i) => (
                         <DrinkDiv key={drink.drinkUuid} props={{bubbles, setConfig, drink, i}} />
                     ))}

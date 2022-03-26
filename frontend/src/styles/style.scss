@@ -1,71 +1,46 @@
-:root {
-    --bg-color: #98b2cb;
-    --header-bg: rgba(255,255,255,.75);
-    --button-bg: rgba(255,255,255,.25);
-    --button-bg-hover: rgba(255,255,255,.5);
-    --wave-bg: rgb(127,159,191);
-}
+@use './mixins/display.scss' as *;
+@use './mixins/colors.scss' as *;
 
-.drink-div::before {
-    background-color: var(--bg);
-}
+$bg-color: #98b2cb;
+$bg-color-dark: #304860;
+$header-bg: #fffb;
+$header-bg-dark: #1e252c;
+$button-bg: #fff3;
+$button-bg-hover: #fff7;
+$wave-bg: rgb(127,159,191);
+
 
 /* color themes */
-
 .brand-name {
-    color: var(--brand-color);
-    background: var(--brand-bg);
-    box-shadow: 0 0 0 4px var(--second-bg);
-}
-.wave-color {
-    background: var(--bg);
+    padding: 0 .25em;
+    border-radius: .125em;
+    /* font-family: 'Merienda One', cursive; */
+    font-family: 'Sriracha', cursive;
+    font-size: .7em;
+    text-align: center;
+    margin: .5em;
+
 }
 .fanta {
-    --bg: #fd8e18;
-    --brand-bg: #fd8e18;
-    --brand-color: #1f4ead;
-    --second-bg: white;
+    @include theme-colors(#fd8e18, #1f4ead, white, #fd8e18);
 }
-
 .cola {
-    --bg: #8e0300;
-    --brand-bg: red;
-    --brand-color: black;
-    --second-bg: black;
+    @include theme-colors(red, black, black, #8e0300);
 }
-
 .sprite {
-    --bg: #b0c4de;
-    --brand-bg: #519d4f;
-    --brand-color: white;
-    --second-bg: white;
+    @include theme-colors(#519d4f, white, white, #b0c4de);
 }
-
 .water {
-    --bg: #197fe6;
-    --brand-bg: #33a6cc;
-    --brand-color: white;
-    --second-bg: white;
+    @include theme-colors(#33a6cc, white, white, #197fe6);
 }
-
 .special {
-    --bg: #5c41e1;
-    --brand-bg: #cc33cc;
-    --brand-color: white;
-    --second-bg: white;
+    @include theme-colors(#cc33cc, white, white, #5c41e1);
 }
-
 .beer {
-    --bg: #e28538;
-    --brand-bg: #4a2328;
-    --brand-color: white;
-    --second-bg: white;
+    @include theme-colors(#4a2328, white, white, #e28538);
 }
-.beer .wave-trans {
-    margin-bottom: 1em;
-}
-.beer .wave-rot {
-    box-shadow: 0 0 0 .5em #edb248a0;
+.result {
+    @include theme-colors(#{var(--bg)}, white, white, #{var(--bg)});
 }
 
 /* general rules */
@@ -78,21 +53,39 @@
 body {
     height: 100vh;
     font-family: 'Roboto';
-    background: var(--bg-color);
+    background: $bg-color;
+    // background: $bg-color-dark;
 }
 #body-div {
+    @include flex-col;
     height: 100vh;
-}
-.flex {
-    display: flex;
-}
-.flex-col {
-    display: flex;
-    flex-direction: column;
-}
-.flex-row {
-    display: flex;
-    flex-direction: row;
+
+    #header-bar {
+        @include flex-row;
+        height: 8em;
+        font-size: 1.2em;
+        background: $header-bg;
+        // background: $header-bg-dark;
+        align-items: center;
+        justify-content: space-between;
+
+        #time {
+            font-size: 5em;
+            margin: 0 1em;
+        }
+        
+        #header-right {
+            @include flex-row;
+            align-items: center;
+            font-size: 3em;
+            height: 100%;
+            background-color: #0003;
+
+            * {
+                margin: 0 1em;
+            }
+        }
+    }
 }
 
 /* typography */
@@ -105,108 +98,66 @@ p {
     font-family: 'Schoolbell', cursive;
     margin: 0 3rem 0 1rem;
 }
-.brand-name {
-    padding: 0 .25em;
-    border-radius: .125em;
-    /* font-family: 'Merienda One', cursive; */
-    font-family: 'Sriracha', cursive;
-}
 
 /* ========== ========== ========== */
 
-/* header */
-
-#header-bar {
-    height: 8em;
-    font-size: 1.2em;
-    background: var(--header-bg);
-    align-items: center;
-    justify-content: space-between;
-}
-#header-right {
-    align-items: center;
-    font-size: 3em;
-    height: 100%;
-    background-color: #0003;
-}
-#header-right * {
-    margin: 0 1em;
-}
-#time {
-    font-size: 5em;
-    margin: 0 1em;
-}
-.drink-level .drink-div {
-    opacity: .75;
-    /* border: .25em solid royalblue; */
-}
-.drink-level .wave-trans {
-    animation: none;
-    transform: translateY(var(--transform-wave-trans));
-}
-.drink-level .wave-rot {
-    background: var(--header-bg);
-    animation: none;
-    box-shadow: 0 0 0 .25em #fffa;
-}
-.drink-level .wave-color {
-    opacity: .3;
-}
-
 /* main */
 
-.drink-div::before  {
-    content: '';
-    position: absolute;
-    width: 3em;
-    height: 6em;
-    z-index: -1;
-}
-.drink-div {
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    width: 3em;
-    height: 6em;
-    overflow: hidden;
-    border: .05em solid black;
-}
 .wave-trans, .wave-rot {
     animation-delay: 0s, 10s;
 }
 
 #content {
+    @include flex-col;
     position: relative;
     height: 100%;
     justify-content: space-around;
     margin-top: 2em;
+
+    #message {
+        position: absolute;
+        color: red;
+        top: 0;
+        align-self: center;
+        font-size: 5em;
+        padding-top: 1em;
+    }
+    #content-div {
+        @include flex-row;
+        /* padding: 0 2vw; */
+        align-items: center;
+        justify-content: space-around;
+        font-size: 5em;
+
+        .content-drink{
+            align-items: center;
+
+            @include flex-col;
+            & > * {
+                margin: .125em;
+            }
+            .drink-div {
+                @include flex-col;
+                position: relative;
+                align-items: center;
+                justify-content: center;
+                width: 3em;
+                height: 6em;
+                overflow: hidden;
+                border: .05em solid black;
+
+                ::before  {
+                    content: '';
+                    position: absolute;
+                    width: 3em;
+                    height: 6em;
+                    z-index: -1;
+                }
+            }
+        }
+    }
 }
-#message {
-    position: absolute;
-    color: red;
-    top: 0;
-    align-self: center;
-    font-size: 5em;
-    padding-top: 1em;
-}
-#content-div {
-    /* padding: 0 2vw; */
-    align-items: center;
-    justify-content: space-around;
-    font-size: 5em;
-}
-#content-div > div {
-    align-items: center;
-}
-#content-div > div > * {
-    margin: .125em;
-}
-#content-div .drink-div {
-    border: .05em solid black;
-}
-.new2 .bubble-div {
-    z-index: -1;
-}
+
 .bubble-div {
     position: absolute;
     border-radius: 50%;
@@ -248,7 +199,7 @@ p {
     }
 }
 #content .wave-rot {
-    background: var(--bg-color);
+    background: $bg-color;
     overflow: hidden;
 }
 .wave-color {
@@ -258,15 +209,28 @@ p {
 }
 .value {
     border: .05em solid black;
-}
-.value button, .value p {
-    text-shadow: 0 0 8px white;
-    font-size: 1em;
-    z-index: 1;
-}
-.value svg {
-    opacity: .5;
-    font-size: 1.25em;
+
+    button, p {
+        text-shadow: 0 0 8px white;
+        font-size: 1em;
+        z-index: 1;
+    }
+    button {
+        transition: .2s;
+        -webkit-transition: .2s;
+        font-size: 1em;
+        width: 2em;
+        height: 2em;
+        cursor: pointer;
+        border: none;
+        background-color: #fff4;
+        border-radius: .25em;
+        border: .05em solid #fff6;
+    }
+    svg {
+        opacity: .5;
+        font-size: 1.25em;
+    }
 }
 .percent-down {
     backface-visibility: .5;
@@ -275,36 +239,22 @@ p {
 .percent-up {
     /* background-color: #fff6 !important; */
 }
-.value button {
-    transition: .2s;
-    -webkit-transition: .2s;
-    font-size: 1em;
-    width: 2em;
-    height: 2em;
-    cursor: pointer;
-    border: none;
-    background-color: #fff4;
-    border-radius: .25em;
-    border: .05em solid #fff6;
-}
-.value > button, .value > p {
-    z-index: 1;
-}
 .value button:hover {
     transition: .2s;
     -webkit-transition: .2s;
-    background: var(--button-bg-hover);
+    background: $button-bg-hover;
 }
 
 .new2 {
+    @include flex-row;
     position: relative;
     align-items: center;
     justify-content: center;
     width: 3em;
-    height: 6em;
+    height: 5em;
     overflow: hidden;
-    border: .05em solid black;
-    border-radius: 20% 20% 40% 40% / 10% 10% 75% 75%;
+    border-top: .05em solid #0003 !important;
+    border-radius: 0 0 40% 40% / 0 0 75% 75%;
 }
 
 /* ========== ========== ========== */
@@ -316,11 +266,17 @@ p {
     width: 100%;
     height: 8em;
     transform: translateY(var(--transform-wave-trans));
+
+    &.animate {
+        width: 8em;
+        animation: wave-start-trans 10s, wave-trans 10s ease-in-out infinite;
+        z-index: 1;
+    }
+    .beer & {
+        margin-bottom: 1em;
+    }
 }
-.wave-trans.animate {
-    width: 8em;
-    animation: wave-start-trans 10s, wave-trans 10s ease-in-out infinite;
-}
+
 @keyframes wave-start-trans {
     0% {
         animation-timing-function: ease-out;
@@ -350,13 +306,18 @@ p {
     width: 100%;
     height: 8em;
     box-shadow: 0 0 0 .125em #fff5;
-}
-.wave-rot.animate {
+
+    &.animate {
     width: 8em;
     height: 8em;
     border-radius: 35%;
     animation: wave-start-rot 10s, wave-rot 10s linear infinite;
+    }
+    .beer & {
+        box-shadow: 0 0 0 .5em #edb248a0;
+    }
 }
+
 @keyframes wave-start-rot {
     0% {
         animation-timing-function: ease-out;
@@ -392,11 +353,6 @@ p {
     100% {
         transform: rotate(315deg) translateY(0em);
     }
-}
-.brand-name {
-    font-size: .7em;
-    text-align: center;
-    margin: .5em;
 }
 @keyframes error-message {
     0% {

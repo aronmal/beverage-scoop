@@ -26,8 +26,8 @@ function TheDrinkDiv({props: { config, bubbles }}: { props: {config: configType,
     const match = bubbles.findIndex(e => e.drinkUuid === 'drink')
     const thisBubbles = bubbles[match].bubbles || []
     return (
-    <div className={`flex-col`} style={{'--bg': `hsl(${theColor[0]},${theColor[1]}%,${theColor[2]}%)`} as CSSProperties}>
-        <div className="new2 flex-row drink-div">
+    <div className={`content-drink result`} style={{'--bg': `hsl(${theColor[0]},${theColor[1]}%,${theColor[2]}%)`} as CSSProperties}>
+        <div className="new2 drink-div">
             <p style={{position: 'absolute', top: '0'}}>{ level + '%'}</p>
             <div className="wave-trans animate" style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
                 <div className="wave-rot animate">

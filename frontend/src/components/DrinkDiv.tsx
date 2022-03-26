@@ -15,27 +15,25 @@ function DrinkDiv({props: {bubbles, setConfig, drink: { drinkUuid, drinkname, ty
     const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
     const thisBubbles = bubbles[match].bubbles || []
     return (
-    <div className={`flex-row content-drink ${type}`}>
-        <div className="flex-col">
-            <div className="drink-div value flex-col">
-                <button className="percent-up" onClick={() => buttonClicked(setConfig, 'up', i)}>
-                    <FontAwesomeIcon icon={faPlay} color='black' rotation={270} />
-                </button>
-                <p className="percentage">{ percentage + '%' }</p>
-                <button className="percent-down" onClick={() => buttonClicked(setConfig, 'down', i)}>
-                    <FontAwesomeIcon icon={faPlay} color='black' rotation={90} />
-                </button>
-                <div className="wave-trans" style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
-                    <div className="wave-rot">
-                        <div className="wave-color"></div>
-                    </div>
+    <div className={`content-drink ${type}`}>
+        <div className="drink-div value">
+            <button className="percent-up" onClick={() => buttonClicked(setConfig, 'up', i)}>
+                <FontAwesomeIcon icon={faPlay} color='black' rotation={270} />
+            </button>
+            <p className="percentage">{ percentage + '%' }</p>
+            <button className="percent-down" onClick={() => buttonClicked(setConfig, 'down', i)}>
+                <FontAwesomeIcon icon={faPlay} color='black' rotation={90} />
+            </button>
+            <div className="wave-trans" style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
+                <div className="wave-rot">
+                    <div className="wave-color"></div>
                 </div>
-                {thisBubbles.map((bubble) => (
-                    <Bubble key={bubble.bubbleUuid} props={bubble} />
-                ))}
             </div>
-            <p className="brand-name drink-name">{ drinkname }</p>
+            {thisBubbles.map((bubble) => (
+                <Bubble key={bubble.bubbleUuid} props={bubble} />
+            ))}
         </div>
+        <p className="brand-name drink-name">{ drinkname }</p>
     </div>
   )
 }
