@@ -1,4 +1,4 @@
-type drinkType = {
+export type drinkType = {
     drinkUuid: string,
     drinkname: 'Fanta' | 'Cola' | 'Sprite' | 'Wasser' | 'Special' | 'Beer',
     type: string,
@@ -16,9 +16,7 @@ export type bubbleType = {
     size: string,
     left: string,
     animation1: string,
-    animationFillMode: string,
     animation2: string,
-    age: number
 }
 
 export type bubblesType = {
