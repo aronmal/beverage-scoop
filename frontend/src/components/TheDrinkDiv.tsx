@@ -1,6 +1,7 @@
 import { faDroplet } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { CSSProperties } from 'react'
+import percentage from '../helpers/percentage'
 import { bubblesType, configType } from '../interfaces'
 import Bubble from './Bubble'
 
@@ -14,22 +15,18 @@ const colors = {
 }
 
 function TheDrinkDiv({props: { config, bubbles }}: { props: {config: configType, bubbles: bubblesType[]}}) {
-    const level = config.drinks.reduce((level, {percentage}) => level + percentage, 0)
-    const percent = config.drinks.map(({percentage}) => percentage).reduce((partialSum, a) => partialSum + a, 0)
+    const percent = percentage(config)
     const theColor = config.drinks.reduce((color, {drinkname, percentage}) => colors[drinkname].map((drinkColor, i) => Math.floor(drinkColor * (percentage/percent)) + color[i]), [0,0,0])
     const transformWaveMax = -85
     const transformWaveMin = -20
-    const transformWave = Math.round((level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
-    const transformBrandMax = 125
-    const transformBrandMin = -50
-    const transformBrand = Math.round(((1-level/100) * (transformBrandMax - transformBrandMin) + transformBrandMin))
+    const transformWave = Math.round((percent/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
     const match = bubbles.findIndex(e => e.drinkUuid === 'drink')
     const thisBubbles = bubbles[match].bubbles || []
     return (
-    <div className={`content-drink result`} style={{'--bg': `hsl(${theColor[0]},${theColor[1]}%,${theColor[2]}%)`} as CSSProperties}>
-        <div className="new2 drink-div">
-            <p style={{position: 'absolute', top: '0'}}>{ level + '%'}</p>
-            <div className="wave-trans animate" style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
+    <>
+        <div className="drink-div result result-div" style={{'--bg': `hsl(${theColor[0]},${theColor[1]}%,${theColor[2]}%)`} as CSSProperties}>
+            <p className='percentage'>{ percent + '%'}</p>
+            <div className="wave-trans animate" style={{'--transform-wave-trans': `${transformWave}%`} as CSSProperties}>
                 <div className="wave-rot animate">
                     <div className="wave-color"></div>
                 </div>
@@ -38,10 +35,10 @@ function TheDrinkDiv({props: { config, bubbles }}: { props: {config: configType,
                 <Bubble key={bubble.bubbleUuid} props={bubble} />
             ))}
         </div>
-        <button className="brand-name drink-name">
+        <button className={`brand-name result`}  style={{'--bg': `hsl(${theColor[0]},${theColor[1]}%,${theColor[2]}%)`} as CSSProperties}>
             <FontAwesomeIcon icon={faDroplet} />
         </button>
-    </div>
+    </>
 )}
 
 export default TheDrinkDiv;

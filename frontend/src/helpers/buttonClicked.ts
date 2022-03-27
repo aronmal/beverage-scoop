@@ -1,15 +1,16 @@
 // import errorMessage from "./errorMessage"
 
 import { configType } from "../interfaces";
+import percentage from "./percentage";
 
 // import fetchLoad from "./fetchLoad"
 type directionType = 'up' | 'down'
 
 export default async function buttonClicked(setConfig: React.Dispatch<React.SetStateAction<configType>>, direction: directionType, i: number) {
     setConfig(e => {
-        if (direction === 'up')
+        if (direction === 'up' && percentage(e) + 5 <= 100)
             return { ...e, drinks: Object.assign([...e.drinks], { [i]: {...e.drinks[i], percentage: e.drinks[i].percentage + 5 }})}
-        if (direction === 'down')
+        if (direction === 'down' && e.drinks[i].percentage - 5 >= 0)
             return { ...e, drinks: Object.assign([...e.drinks], { [i]: {...e.drinks[i], percentage: e.drinks[i].percentage - 5 }})}
         return e;
     })

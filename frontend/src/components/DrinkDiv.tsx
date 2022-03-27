@@ -9,14 +9,11 @@ function DrinkDiv({props: {bubbles, setConfig, drink: { drinkUuid, drinkname, ty
     const transformWaveMax = -85
     const transformWaveMin = -20
     const transformWave = Math.round((level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
-    const transformBrandMax = 125
-    const transformBrandMin = -50
-    const transformBrand = Math.round(((1-level/100) * (transformBrandMax - transformBrandMin) + transformBrandMin))
     const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
     const thisBubbles = bubbles[match].bubbles || []
     return (
-    <div className={`content-drink ${type}`}>
-        <div className="drink-div value">
+    <>
+        <div className={`drink-div ${type}`}>
             <button className="percent-up" onClick={() => buttonClicked(setConfig, 'up', i)}>
                 <FontAwesomeIcon icon={faPlay} color='black' rotation={270} />
             </button>
@@ -24,7 +21,7 @@ function DrinkDiv({props: {bubbles, setConfig, drink: { drinkUuid, drinkname, ty
             <button className="percent-down" onClick={() => buttonClicked(setConfig, 'down', i)}>
                 <FontAwesomeIcon icon={faPlay} color='black' rotation={90} />
             </button>
-            <div className="wave-trans" style={{'--transform-wave-trans': `${transformWave}%`, '--transform-brand-name': `${transformBrand}%`} as CSSProperties}>
+            <div className="wave-trans" style={{'--transform-wave-trans': `${transformWave}%`} as CSSProperties}>
                 <div className="wave-rot">
                     <div className="wave-color"></div>
                 </div>
@@ -33,8 +30,8 @@ function DrinkDiv({props: {bubbles, setConfig, drink: { drinkUuid, drinkname, ty
                 <Bubble key={bubble.bubbleUuid} props={bubble} />
             ))}
         </div>
-        <p className="brand-name drink-name">{ drinkname }</p>
-    </div>
+        <p className={`brand-name ${type}`}>{ drinkname }</p>
+    </>
   )
 }
 

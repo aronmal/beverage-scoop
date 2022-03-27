@@ -9,3 +9,10 @@
     display: flex;
     flex-direction: row;
 }
+@mixin drinks-grid {
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: center;
+    row-gap: .5em;
+    grid-template-rows: 480px 100px;
+}

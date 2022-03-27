@@ -11,16 +11,7 @@ $wave-bg: rgb(127,159,191);
 
 
 /* color themes */
-.brand-name {
-    padding: 0 .25em;
-    border-radius: .125em;
-    /* font-family: 'Merienda One', cursive; */
-    font-family: 'Sriracha', cursive;
-    font-size: .7em;
-    text-align: center;
-    margin: .5em;
 
-}
 .fanta {
     @include theme-colors(#fd8e18, #1f4ead, white, #fd8e18);
 }
@@ -38,9 +29,18 @@ $wave-bg: rgb(127,159,191);
 }
 .beer {
     @include theme-colors(#4a2328, white, white, #e28538);
+    .wave-trans {
+        margin-bottom: 1em;
+    }
+    .wave-rot {
+        box-shadow: 0 0 0 .5em #edb248a0;
+    }
 }
 .result {
     @include theme-colors(#{var(--bg)}, white, white, #{var(--bg)});
+    &.brand-name {
+        padding: 0 1.5em;
+    }
 }
 
 /* general rules */
@@ -93,19 +93,10 @@ body {
 p {
     cursor: default;
 }
-.drink-level > p {
-    font-size: 3em;
-    font-family: 'Schoolbell', cursive;
-    margin: 0 3rem 0 1rem;
-}
 
 /* ========== ========== ========== */
 
 /* main */
-
-.wave-trans, .wave-rot {
-    animation-delay: 0s, 10s;
-}
 
 #content {
     @include flex-col;
@@ -123,55 +114,133 @@ p {
         padding-top: 1em;
     }
     #content-div {
-        @include flex-row;
+        @include drinks-grid;
         /* padding: 0 2vw; */
         align-items: center;
         justify-content: space-around;
         font-size: 5em;
 
-        .content-drink{
-            align-items: center;
+        .brand-name {
+            padding: 0 .25em;
+            border-radius: .125em;
+            /* font-family: 'Merienda One', cursive; */
+            font-family: 'Sriracha', cursive;
+            font-size: .7em;
+            text-align: center;
 
-            @include flex-col;
-            & > * {
-                margin: .125em;
+            svg {
+                margin: 0 1.5em;
             }
-            .drink-div {
-                @include flex-col;
-                position: relative;
-                align-items: center;
-                justify-content: center;
-                width: 3em;
-                height: 6em;
-                overflow: hidden;
-                border: .05em solid black;
-
-                ::before  {
-                    content: '';
+        }
+        .result-div {
+            @include flex-row;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            width: 3em;
+            height: 5em;
+            overflow: hidden;
+            border-top: .05em solid #0003 !important;
+            border-radius: 0 0 40% 40% / 0 0 75% 75%;
+        }
+        .drink-div {
+            @include flex-col;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            width: 3em;
+            height: 6em;
+            overflow: hidden;
+            border: .05em solid black;
+        
+            .percentage {
+                z-index: 2;
+            }
+            .percent-up, .percent-down, p {
+                text-shadow: 0 0 8px white;
+                font-size: 1em;
+                z-index: 2;
+            }
+            .percent-up, .percent-down {
+                transition: .2s;
+                -webkit-transition: .2s;
+                font-size: 1em;
+                width: 2em;
+                height: 2em;
+                cursor: pointer;
+                border: none;
+                background-color: #fff4;
+                border-radius: .25em;
+                border: .05em solid #fff6;
+        
+                &:hover {
+                    transition: .2s;
+                    -webkit-transition: .2s;
+                    background: $button-bg-hover;
+                }
+            }
+            svg {
+                opacity: .5;
+                font-size: 1.25em;
+            }
+            .wave-trans {
+                position: absolute;
+                width: 100%;
+                height: 8em;
+                transform: translateY(var(--transform-wave-trans));
+                animation: wave-start-trans 5s;
+            
+                &.animate {
+                    width: 8em;
+                    animation: wave-start-trans 5s, wave-start2-trans 5s 5s, wave-trans 10s 10s ease-in-out infinite;
+                    z-index: 1;
+                }
+                .wave-rot {
                     position: absolute;
-                    width: 3em;
-                    height: 6em;
-                    z-index: -1;
+                    width: 100%;
+                    height: 8em;
+                    box-shadow: 0 0 0 .125em #fff5;
+                    background: $bg-color;
+                    overflow: hidden;
+                
+                    &.animate {
+                        width: 8em;
+                        height: 8em;
+                        border-radius: 35%;
+                        animation: wave-start-rot 10s, wave-rot 10s 10s linear infinite;
+                    }
+                    .wave-color {
+                        height: 100%;
+                        width: 100%;
+                        opacity: .5;
+                    }
+                }
+            }
+            .bubble-div {
+                position: absolute;
+                border-radius: 50%;
+                opacity: 0;
+                height: var(--bubble-size);
+                width: var(--bubble-size);
+            
+                .bubble {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: #fff4;
+                    height: var(--bubble-size);
+                    width: var(--bubble-size);
                 }
             }
         }
     }
 }
 
-.bubble-div {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0;
-    height: var(--bubble-size);
-    width: var(--bubble-size);
-}
-.bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: #fff4;
-    height: var(--bubble-size);
-    width: var(--bubble-size);
-}
+
+
+/* ========== ========== ========== */
+
+/* keyframes*/
+
 @keyframes bubblesY {
     0% {
         transform: translateY(2000%);
@@ -190,6 +259,7 @@ p {
         opacity: 0;
     }
 }
+
 @keyframes bubblesX {
     From {
         transform: translateX(-25%);
@@ -198,95 +268,23 @@ p {
         transform: translateX(25%);
     }
 }
-#content .wave-rot {
-    background: $bg-color;
-    overflow: hidden;
-}
-.wave-color {
-    height: 100%;
-    width: 100%;
-    opacity: .5;
-}
-.value {
-    border: .05em solid black;
-
-    button, p {
-        text-shadow: 0 0 8px white;
-        font-size: 1em;
-        z-index: 1;
-    }
-    button {
-        transition: .2s;
-        -webkit-transition: .2s;
-        font-size: 1em;
-        width: 2em;
-        height: 2em;
-        cursor: pointer;
-        border: none;
-        background-color: #fff4;
-        border-radius: .25em;
-        border: .05em solid #fff6;
-    }
-    svg {
-        opacity: .5;
-        font-size: 1.25em;
-    }
-}
-.percent-down {
-    backface-visibility: .5;
-    /* background-color: #fff6 !important; */
-}
-.percent-up {
-    /* background-color: #fff6 !important; */
-}
-.value button:hover {
-    transition: .2s;
-    -webkit-transition: .2s;
-    background: $button-bg-hover;
-}
-
-.new2 {
-    @include flex-row;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    width: 3em;
-    height: 5em;
-    overflow: hidden;
-    border-top: .05em solid #0003 !important;
-    border-radius: 0 0 40% 40% / 0 0 75% 75%;
-}
-
-/* ========== ========== ========== */
-
-/* keyframes*/
-
-.wave-trans {
-    position: absolute;
-    width: 100%;
-    height: 8em;
-    transform: translateY(var(--transform-wave-trans));
-
-    &.animate {
-        width: 8em;
-        animation: wave-start-trans 10s, wave-trans 10s ease-in-out infinite;
-        z-index: 1;
-    }
-    .beer & {
-        margin-bottom: 1em;
-    }
-}
 
 @keyframes wave-start-trans {
-    0% {
+    From {
         animation-timing-function: ease-out;
         transform: translateY(-10%);
     }
-    50% {
+    To {
         animation-timing-function: ease-in;
-        transform: translateY(calc(var(--transform-wave-trans) + 5%));
+        transform: translateY(var(--transform-wave-trans));
     }
-    100% {
+}
+@keyframes wave-start2-trans {
+    From {
+        animation-timing-function: ease-in;
+        transform: translateY(var(--transform-wave-trans));
+    }
+    To {
         transform: translateY(var(--transform-wave-trans));
     }
 }
@@ -299,22 +297,6 @@ p {
     }
     100% {
         transform: translateY(var(--transform-wave-trans));
-    }
-}
-.wave-rot {
-    position: absolute;
-    width: 100%;
-    height: 8em;
-    box-shadow: 0 0 0 .125em #fff5;
-
-    &.animate {
-    width: 8em;
-    height: 8em;
-    border-radius: 35%;
-    animation: wave-start-rot 10s, wave-rot 10s linear infinite;
-    }
-    .beer & {
-        box-shadow: 0 0 0 .5em #edb248a0;
     }
 }
 
