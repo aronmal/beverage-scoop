@@ -1,5 +1,6 @@
-@use './mixins/display.scss' as *;
-@use './mixins/colors.scss' as *;
+@use './mixins/display' as *;
+@use './mixins/colors' as *;
+@use './mixins/effects' as *;
 
 $bg-color: #98b2cb;
 $bg-color-dark: #304860;
@@ -162,8 +163,7 @@ p {
                 z-index: 2;
             }
             .percent-up, .percent-down {
-                transition: .2s;
-                -webkit-transition: .2s;
+                @include transition(.2s);
                 font-size: 1em;
                 width: 2em;
                 height: 2em;
@@ -174,8 +174,7 @@ p {
                 border: .05em solid #fff6;
         
                 &:hover {
-                    transition: .2s;
-                    -webkit-transition: .2s;
+                    @include transition(.2s);
                     background: $button-bg-hover;
                 }
             }
@@ -184,6 +183,7 @@ p {
                 font-size: 1.25em;
             }
             .wave-trans {
+                @include transition(.5s);
                 position: absolute;
                 width: 100%;
                 height: 8em;

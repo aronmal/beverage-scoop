@@ -8,7 +8,7 @@ import Bubble from './Bubble';
 function DrinkDiv({props: {bubbles, setConfig, drink: { drinkUuid, drinkname, type, percentage, level }, i}}: {props: {bubbles: bubblesType[], setConfig: React.Dispatch<React.SetStateAction<configType>>, drink: drinkType, i: number}}) {
     const transformWaveMax = -85
     const transformWaveMin = -20
-    const transformWave = Math.round((level/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
+    const transformWave = Math.round((percentage/100) * (transformWaveMax - transformWaveMin) + transformWaveMin)
     const match = bubbles.findIndex(e => e.drinkUuid === drinkUuid)
     const thisBubbles = bubbles[match].bubbles || []
     return (
