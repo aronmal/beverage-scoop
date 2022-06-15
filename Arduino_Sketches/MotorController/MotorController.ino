@@ -4,6 +4,7 @@
 #define dirPin 2
 int stepPin;//#define stepPin 3
 #define stepsPerRevolution 200
+#define amountOfDrinks 4
 
 void setup() {
   // Declare pins as output:
@@ -13,26 +14,43 @@ void setup() {
 }
 
 void loop() {
-  while(Serial..available() == 0){
-    delay(200);
-    Serial.println("ping");
-    } // Wait for 
+  while(Serial.available() == 0){} // Wait 
 
-
-
-  //set StepPin
-    
   // Set the spinning direction clockwise:
   digitalWrite(dirPin, HIGH); //HIGH = clockwise, LOW = aounterclockwise;
+  int j;
+  String inputStr = Serial.readString();
+  for(int i = 0; i < amountOfDrinks; ++i){
+    j = splitAtChar(inputStr, ',', i).toInt();
+    stepPin = i + 3; //TODO: WARNING WHEN CONNECTING!!!
 
-  // Spin the stepper motor 1 revolution slowly:
-  for (int i = 0; i < times * stepsPerRevolution; i++) {
-    // These four lines result in 1 step:
-    digitalWrite(stepPin, HIGH);
-    delayMicroseconds(2000);
-    digitalWrite(stepPin, LOW);
-    delayMicroseconds(2000);
+    // Spin the stepper motor 1 revolution slowly:
+    for (int i = 0; i < 1 /*times*/ * stepsPerRevolution; i++) {
+      // These four lines result in 1 step:
+      digitalWrite(stepPin, HIGH);
+      delayMicroseconds(1000);
+      digitalWrite(stepPin, LOW);
+      delayMicroseconds(1000);
+    }
+  }
+  delay(1000);
+}
+
+
+// https://stackoverflow.com/questions/9072320/split-string-into-string-array
+String splitAtChar(String data, char separator, int index)
+{
+  int found = 0;
+  int strIndex[] = {0, -1};
+  int maxIndex = data.length()-1;
+
+  for(int i=0; i<=maxIndex && found<=index; i++){
+    if(data.charAt(i)==separator || i==maxIndex){
+        found++;
+        strIndex[0] = strIndex[1]+1;
+        strIndex[1] = (i == maxIndex) ? i+1 : i;
+    }
   }
 
-  delay(1000);
+  return found>index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
