@@ -8,7 +8,10 @@ int stepPin;//#define stepPin 3
 
 void setup() {
   // Declare pins as output:
-  pinMode(stepPin, OUTPUT);
+  pinMode(3, OUTPUT); // min 3
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
   pinMode(dirPin, OUTPUT);
 
 }
