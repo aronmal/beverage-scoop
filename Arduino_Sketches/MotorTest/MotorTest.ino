@@ -14,7 +14,6 @@ void setup() {
   Serial.begin(9600);
 }
 
-int j = 0;
 void loop() {
   // Set the spinning direction clockwise:
   digitalWrite(dirPin, LOW); //HIGH = clockwise, LOW = aounterclockwise;
