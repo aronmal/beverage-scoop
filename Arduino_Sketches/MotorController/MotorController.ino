@@ -24,4 +24,6 @@ void loop() {
       delayMicroseconds(500);
     }
   delay(1000);
+
+  Serial.println("Finished"); // teii rpi: finish c: ~Miguel
 }
