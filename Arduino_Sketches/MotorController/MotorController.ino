@@ -12,24 +12,17 @@ void setup() {
 
 void loop() {
   while(Serial.available() == 0){} // Wait 
-
+  int percent = Serial.readString().toInt();
   // Set the spinning direction clockwise:
   digitalWrite(dirPin, LOW); //HIGH = clockwise, LOW = aounterclockwise;
-  int j;
-  String inputStr = Serial.readString();
-  for(int i = 0; i < amountOfDrinks; ++i){
-    j = splitAtChar(inputStr, ',', i).toInt();
-    stepPin = i + 3; //TODO: WARNING WHEN CONNECTING!!!
-
     // Spin the stepper motor 1 revolution slowly:
-    for (int i = 0; i < 1 /*times*/ * stepsPerRevolution; i++) {
+    for (int i = 0; i < 50 * percent /*times*/ * stepsPerRevolution; i++) {
       // These four lines result in 1 step:
       digitalWrite(stepPin, HIGH);
       delayMicroseconds(500);
       digitalWrite(stepPin, LOW);
       delayMicroseconds(500);
     }
-  }
   delay(1000);
 }
 
