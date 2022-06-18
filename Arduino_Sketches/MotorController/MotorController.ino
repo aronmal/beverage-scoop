@@ -10,9 +10,7 @@ void setup() {
   Serial.begin(9600);
 }
 
-int j = 0;
 void loop() {
-  j = 0;
   while(Serial.available() == 0){} // Wait 
   int percent = Serial.readString().toInt();
   Serial.println(percent + "%");
