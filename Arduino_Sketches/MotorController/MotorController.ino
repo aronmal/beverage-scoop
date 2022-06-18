@@ -1,17 +1,11 @@
-/*Example sketch to control a stepper motor with A4988/DRV8825 stepper motor driver and Arduino without a library. More info: https://www.makerguides.com */
-
 // Define stepper motor connections and steps per revolution:
 #define dirPin 2
-int stepPin;//#define stepPin 3
+#define stepPin 3//#define stepPin 3
 #define stepsPerRevolution 200
-#define amountOfDrinks 4
 
 void setup() {
   // Declare pins as output:
-  pinMode(3, OUTPUT); // min 3
-  pinMode(4, OUTPUT);
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
+  pinMode(stepPin, OUTPUT);
   pinMode(dirPin, OUTPUT);
 
 }
@@ -20,7 +14,7 @@ void loop() {
   while(Serial.available() == 0){} // Wait 
 
   // Set the spinning direction clockwise:
-  digitalWrite(dirPin, HIGH); //HIGH = clockwise, LOW = aounterclockwise;
+  digitalWrite(dirPin, LOW); //HIGH = clockwise, LOW = aounterclockwise;
   int j;
   String inputStr = Serial.readString();
   for(int i = 0; i < amountOfDrinks; ++i){
@@ -31,9 +25,9 @@ void loop() {
     for (int i = 0; i < 1 /*times*/ * stepsPerRevolution; i++) {
       // These four lines result in 1 step:
       digitalWrite(stepPin, HIGH);
-      delayMicroseconds(1000);
+      delayMicroseconds(500);
       digitalWrite(stepPin, LOW);
-      delayMicroseconds(1000);
+      delayMicroseconds(500);
     }
   }
   delay(1000);
