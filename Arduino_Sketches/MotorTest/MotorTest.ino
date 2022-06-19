@@ -13,7 +13,7 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
 }
-
+int j = 0;
 void loop() {
   // Set the spinning direction clockwise:
   digitalWrite(dirPin, LOW); //HIGH = clockwise, LOW = aounterclockwise;
@@ -21,9 +21,9 @@ void loop() {
   for (int i = 0; i < 69420 /*times*/ * stepsPerRevolution; i++) {
     // These four lines result in 1 step:
     digitalWrite(stepPin, HIGH);
-    delayMicroseconds(500);
+    delayMicroseconds(600);
     digitalWrite(stepPin, LOW);
-    delayMicroseconds(500);
+    delayMicroseconds(600);
     ++j;
     if(j % 50 == 0){
       digitalWrite(LED_BUILTIN, HIGH);
@@ -31,7 +31,7 @@ void loop() {
       digitalWrite(LED_BUILTIN, LOW);
     }
 
-    Serial.println("i: " + i);
+    //Serial.println("i: " + i);
   }
  
   
